@@ -16,7 +16,7 @@ export function Skills({ variant = "minimal" }: SkillsProps) {
 
   if (variant === "bento") {
     return (
-      <section className="w-full py-10">
+      <section id="skills" className="w-full py-10">
         <div className="container mx-auto px-4 max-w-6xl">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4 pl-1">
             Tech Stack

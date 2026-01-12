@@ -2,14 +2,15 @@
 
 import { smoothScroll } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Code, Mail, Menu } from "lucide-react";
+import { Home, Code, Mail, Menu, FolderGit2, BriefcaseBusiness } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 
 const navItems = [
   { name: "Inicio", href: "#top", icon: Home },
   { name: "Skills", href: "#skills", icon: Code },
-  { name: "Proyectos", href: "#projects", icon: User },
+  { name: "Proyectos", href: "#projects", icon: FolderGit2 },
+  { name: "Trayectoria", href: "#experience", icon: BriefcaseBusiness },
   { name: "Contacto", href: "#contact", icon: Mail },
 ];
 

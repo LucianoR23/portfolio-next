@@ -5,12 +5,13 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolio";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
+import { ThemeToggle } from "@/components/ui/ThemeToggle"; // <--- 1. Importar el componente
 
 export function Footer() {
   const { personalInfo, socials } = portfolioData;
 
   return (
-    <footer id="contact" className="w-full pt-20 border-t border-border bg-card/30">
+    <footer id="contact" className="w-full py-3 border-t border-border bg-card/30">
       <div className="container mx-auto px-4 max-w-3xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -35,16 +36,25 @@ export function Footer() {
             </Link>
           </div>
 
-          <div className="flex justify-center gap-6 pt-8">
+          {/* --- ZONA DE ICONOS --- */}
+          <div className="flex justify-center items-center gap-6 pt-8">
              <Link href={socials.github} target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <GithubIcon size={24} />
              </Link>
              <Link href={socials.linkedin} target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <LinkedinIcon size={24} />
              </Link>
+
+             {/* Separador vertical sutil */}
+             <div className="h-5 w-px bg-border" />
+
+             {/* Botón de Tema */}
+             <div className="text-muted-foreground hover:text-primary transition-colors">
+                <ThemeToggle />
+             </div>
           </div>
 
-          <p className="text-sm text-muted-foreground pt-12">
+          <p className="text-sm text-muted-foreground pt-8">
             © {new Date().getFullYear()} {personalInfo.name}. Creado con Next.js & Tailwind.
           </p>
         </motion.div>

@@ -71,14 +71,12 @@
 }
 
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark {
     --background: hsl(240 10% 3.9%);
     --foreground: hsl(0 0% 98%);
     
     --card: hsl(240 10% 6%);
     --card-foreground: hsl(0 0% 98%);
-    
     
     --primary: hsl(0 0% 98%);
     --primary-foreground: hsl(240 5.9% 10%);
@@ -94,7 +92,6 @@
     
     --border: hsl(240 3.7% 15.9%);
     --input: hsl(240 3.7% 15.9%);
-  }
 }
 
 

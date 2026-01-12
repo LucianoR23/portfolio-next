@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";
-import { Briefcase, GraduationCap, Calendar } from "lucide-react";
+import { GraduationCap, Calendar, BriefcaseBusiness } from "lucide-react";
 
 interface ExperienceProps {
   variant?: "bento" | "minimal" | string;
@@ -26,9 +26,6 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Trayectoria
           </h2>
-          <p className="text-muted-foreground">
-            Mi camino profesional combinando desarrollo, calidad y negocios.
-          </p>
         </motion.div>
 
         <div className={`grid gap-12 ${isBento ? 'md:grid-cols-2' : 'grid-cols-1'}`}>
@@ -36,7 +33,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           
           <div>
             <h3 className="flex items-center gap-2 text-xl font-semibold mb-6 text-primary">
-              <Briefcase size={20} /> Experiencia Laboral
+              <BriefcaseBusiness size={20} /> Experiencia Laboral
             </h3>
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">

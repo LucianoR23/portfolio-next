@@ -12,9 +12,7 @@ export default function Home() {
       
       <Hero variant={styleVariant} />
       
-      <div id="skills">
-        <Skills variant={styleVariant} />
-      </div>
+      <Skills variant={styleVariant} />
       
       <Projects variant={styleVariant} />
 

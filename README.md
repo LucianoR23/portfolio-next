@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio - Luciano Rodriguez
 
-## Getting Started
+🌐 **Live Demo:** [Insert your Vercel link here]
 
-First, run the development server:
+A modern, high-performance personal portfolio built with **Next.js 16**, **React 19**, and **Tailwind CSS 4**. Designed to showcase projects with a focus on both public demos and private SaaS products using a smart UI.
+
+## ✨ Features
+
+- **Dual Layout System**: Switch seamlessly between a trendy **Bento Grid** and a clean **Minimal List** view.
+- **Smart Project Cards**: Intelligent UI that adapts based on project status (Public, Private/SaaS, or GitHub Repo).
+- **Dark/Light Mode**: Fully integrated theme toggle with smooth animations using `next-themes`.
+- **Interactive UI**: Powered by **Framer Motion** for smooth scroll reveals and transitions.
+- **Video Avatar**: Optimized background video support for a dynamic personal introduction.
+- **Responsive**: Mobile-first design that looks perfect on any device.
+- **SEO Optimized**: Built with Next.js App Router for best-in-class performance and SEO.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Library**: [React 19](https://react.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Theme Management**: next-themes
+- **Utilities**: clsx, tailwind-merge
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v20 or higher recommended for Next.js 16)
+- npm, yarn, or pnpm
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone [https://github.com/LucianoR23/portfolio-luciano.git](https://github.com/LucianoR23/portfolio-luciano.git)
+cd portfolio-luciano
+
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* `npm run dev` - Start development server
+* `npm run build` - Build for production
+* `npm start` - Start production server
+* `npm run lint` - Run ESLint checks
 
-## Learn More
+## 🎨 Customization
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Update Content (The "Brain")
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All your personal data, projects, and skills are centralized in one file. You don't need to dig into components to change text.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **File**: `src/data/portfolio.ts`
 
-## Deploy on Vercel
+### 2. Media Files
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Place your images and videos in the `public/` folder:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* `avatar-video.mp4` (Your intro video)
+* `cv_luciano_rodriguez.pdf` (Your Resume)
+* Project screenshots (e.g., `/sistema-gestion.png`)
+
+### 3. Styling & Colors
+
+The design uses Tailwind CSS variables. You can customize the color palette in:
+
+* **File**: `src/app/globals.css` (Look for `:root` and `.dark` classes)
+
+## 📁 Project Structure
+
+```
+/
+├── public/              # Static assets (images, pdfs, videos)
+├── src/
+│   ├── app/            # Next.js 16 App Router pages & layout
+│   │   ├── globals.css # Global styles & Tailwind config
+│   │   └── page.tsx    # Main entry point
+│   ├── components/
+│   │   ├── layout/     # Structural components (Navbar, Footer)
+│   │   ├── sections/   # Page sections (Hero, Projects, Experience)
+│   │   └── ui/         # Reusable atoms (ProjectCard, ThemeToggle, etc.)
+│   ├── data/           # Centralized data file (portfolio.ts)
+│   └── lib/            # Utilities (smoothScroll, cn)
+├── .gitattributes      # Git configuration (LF/CRLF handling)
+└── tailwind.config.ts  # Tailwind configuration
+
+```
+
+## 🌐 Deployment
+
+The easiest way to deploy this app is using **Vercel** (the creators of Next.js).
+
+1. Push your code to GitHub.
+2. Go to [Vercel](https://vercel.com) and "Add New Project".
+3. Select your repository.
+4. **Important**: Add the Environment Variable for the layout style (Optional, defaults to minimal).
+* `NEXT_PUBLIC_PORTFOLIO_STYLE` = `bento` (or `minimal`)
+
+
+5. Click **Deploy**.
+
+## 📄 License
+
+This project is open source and available under the [MIT License](https://www.google.com/search?q=LICENSE).
+
+## 📞 Contact
+
+* **Name**: Luciano Rodriguez
+* **Role**: Front End Developer & QA Analyst
+* **LinkedIn**: [Luciano Rodriguez](https://www.google.com/search?q=https://www.linkedin.com/in/tu-perfil)
+* **Email**: [luciano.rodriguez.dev@gmail.com]
+
+---
+
+Built in Corrientes, Argentina using Next.js 16 & Tailwind CSS 4.
