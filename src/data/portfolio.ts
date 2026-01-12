@@ -84,7 +84,7 @@ export const portfolioData: PortfolioData = {
       repo: null,
       image: "/nutrigo/nutrigo-club.webp",
       gallery: [
-        "/sistema-gestion.png",     
+        "/nutrigo/nutrigo-club.webp",     
         "/sistema-dashboard.png",   
         "/sistema-stock.png",       
         "/sistema-qr.png"           
@@ -92,16 +92,15 @@ export const portfolioData: PortfolioData = {
     },
     {
       title: "Teslo Shop",
-      description: "E-commerce completo con autenticación de usuarios, carrito de compras persistente, pasarela de pagos (sandbox) y panel administrativo para gestión de productos y órdenes.",
+      description: "E-commerce completo con autenticación de usuarios, carrito de compras persistente, pasarela de pagos (sandbox) y panel administrativo para gestión de productos y órdenes. (Proyecto viejo, falta actualizar. NutriGo Club es como una version actualizada y mejorada",
       tags: ["Next.js", "MongoDB", "NextAuth", "PayPal API"],
       link: "https://teslo-shop-lucianor.vercel.app/",
       repo: "https://github.com/LucianoR23/teslo-shop", 
       image: "/shop/teslo-shop.jpg",
       gallery: [
-        "/sistema-gestion.png",     
-        "/sistema-dashboard.png",   
-        "/sistema-stock.png",       
-        "/sistema-qr.png"           
+        "/shop/teslo-shop.jpg",     
+        "/shop/teslo-item.png",   
+        "/shop/teslo-cart.png",
       ],
     },
 
@@ -110,58 +109,40 @@ export const portfolioData: PortfolioData = {
       title: "Ticket System (Sockets)",
       description: "Sistema de gestión de colas en tiempo real utilizando WebSockets. Permite generar tickets y asignarlos a escritorios, actualizando una pantalla pública instantáneamente.",
       tags: ["Node.js", "Socket.io", "Backend", "Express"],
-      link: "https://github.com/LucianoR23/ticket-program-sockets", 
+      link: '', 
       repo: "https://github.com/LucianoR23/ticket-program-sockets",
-      image: "/tickets/generador-ticket.jpg",
+      image: "/tickets/tickets-pantalla.png",
       gallery: [
-        "/sistema-gestion.png",     
-        "/sistema-dashboard.png",   
-        "/sistema-stock.png",       
-        "/sistema-qr.png"           
+        "/tickets/tickets-pantalla.png",          
+        "/tickets/tickets-generar.png",     
+        "/tickets/tickets-atender.png",   
       ],
     },
 
     
     {
       title: "Journal App",
-      description: "Diario digital con soporte para carga de imágenes en la nube. Implementa autenticación segura con Firebase y gestión de estado global compleja con Redux.",
+      description: "Diario digital con soporte para carga de imágenes en la nube. Implementa autenticación segura con Firebase y gestión de estado global compleja con Redux. (journal@prueba.com y prueba123)",
       tags: ["React", "Redux Toolkit", "Firebase", "Cloudinary"],
       link: "https://journal-lemy.vercel.app",
       repo: null,
       image: "/journal/journal.jpg",
-      gallery: [
-        "/sistema-gestion.png",     
-        "/sistema-dashboard.png",   
-        "/sistema-stock.png",       
-        "/sistema-qr.png"           
-      ],
     },
 
     
     {
       title: "Calendar App",
-      description: "Clon funcional de Google Calendar. Backend propio para autenticación y CRUD de eventos. Manejo avanzado de fechas y modales.",
+      description: "Clon funcional de Google Calendar. Backend propio para autenticación y CRUD de eventos. Manejo avanzado de fechas y modales. (calendario@prueba.com y calendario123, o registrarse)",
       tags: ["MERN Stack", "React Big Calendar", "JWT"],
       link: "https://calendar-app-delta-seven.vercel.app",
       repo: null,
       image: "/calendar/calendar-app.jpg",
-      gallery: [
-        "/sistema-gestion.png",     
-        "/sistema-dashboard.png",   
-        "/sistema-stock.png",       
-        "/sistema-qr.png"           
+      gallery: [   
+        "/calendar/calendar-login.png",   
+        "/calendar/calendar-example.png",
       ],
     },
 
-    
-    {
-      title: "Pokemon Static & Game",
-      description: "Generación estática (SSG) de páginas para SEO óptimo y minijuego interactivo. Demostración de consumo de APIs externas y optimización de imágenes.",
-      tags: ["Next.js", "SSG", "PokeAPI", "Game Logic"],
-      link: "https://pokemon-static-lemy.vercel.app/",
-      repo: "https://github.com/LucianoR23/pokemon-game",
-      image: "/pokemon-game.jpg",
-    },
   ],
   experience: [
     {
@@ -180,19 +161,19 @@ export const portfolioData: PortfolioData = {
   ],
   education: [
     {
-      institution: "Teclab Instituto Técnico Superior",
-      degree: "Tecnicatura Superior en Programación",
-      period: "2026 - Presente"
-    },
-    {
       institution: "Udemy - Fernando Herrera (DevTalles)",
-      degree: "Full Stack MERN: React, Next.js, Node.js & TypeScript",
+      degree: "Full Stack MERN: JavaScript, React, Next.js, Node.js, PostgreSQL & TypeScript",
       period: "2023 - 2025"
     },
     {
       institution: "Udemy - Alex Roel (Roel Code)",
-      degree: "Backend Profesional con Go (Golang)",
+      degree: "Go - De Cero a Avanazado (Golang)",
       period: "2025"
-    }
+    },
+    {
+      institution: "Teclab Instituto Técnico Superior",
+      degree: "Tecnicatura Superior en Programación",
+      period: "2026 - Presente"
+    },
   ]
 };

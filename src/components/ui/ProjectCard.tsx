@@ -86,7 +86,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
               )}
             </div>
 
-            <p className="text-muted-foreground mb-5 text-sm md:text-base leading-relaxed line-clamp-3">
+            <p className="text-muted-foreground mb-5 text-sm md:text-base leading-relaxed line-clamp-5">
               {project.description}
             </p>
 
@@ -132,6 +132,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
             images={project.gallery || []} 
             isOpen={isGalleryOpen} 
             onClose={() => setIsGalleryOpen(false)} 
+            title={project.title}
         />
       )}
     </>
