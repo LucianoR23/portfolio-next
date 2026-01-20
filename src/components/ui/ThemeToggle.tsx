@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -15,7 +15,7 @@ export function ThemeToggle() {
 
   if (!mounted) return null;
 
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
@@ -23,6 +23,7 @@ export function ThemeToggle() {
       className="cursor-pointer relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-secondary/80 transition-colors focus:outline-none"
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
+      
       <motion.div
         initial={false}
         animate={{
