@@ -21,10 +21,10 @@ export function Projects({ variant = "minimal" }: ProjectsProps) {
           className="mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Proyectos Destacados
+            Featured Projects
           </h2>
           <p className="text-muted-foreground max-w-2xl">
-            Una selección de soluciones que he construido, desde herramientas de negocio hasta aplicaciones experimentales.
+            A selection of solutions I&apos;ve built, from business tools to experimental apps.
           </p>
         </motion.div>
 

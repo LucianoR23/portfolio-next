@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 
 const navItems = [
-  { name: "Inicio", href: "#top", icon: Home },
+  { name: "Home", href: "#top", icon: Home },
   { name: "Skills", href: "#skills", icon: Code },
-  { name: "Proyectos", href: "#projects", icon: FolderGit2 },
-  { name: "Trayectoria", href: "#experience", icon: BriefcaseBusiness },
-  { name: "Contacto", href: "#contact", icon: Mail },
+  { name: "Projects", href: "#projects", icon: FolderGit2 },
+  { name: "Experience", href: "#experience", icon: BriefcaseBusiness },
+  { name: "Contact", href: "#contact", icon: Mail },
 ];
 
 export function Navbar() {

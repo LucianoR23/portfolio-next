@@ -24,7 +24,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           className="mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Trayectoria
+            Experience
           </h2>
         </motion.div>
 
@@ -33,7 +33,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           
           <div>
             <h3 className="flex items-center gap-2 text-xl font-semibold mb-6 text-primary">
-              <BriefcaseBusiness size={20} /> Experiencia Laboral
+              <BriefcaseBusiness size={20} /> Work Experience
             </h3>
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">
@@ -69,7 +69,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           
           <div>
              <h3 className="flex items-center gap-2 text-xl font-semibold mb-6 text-primary">
-              <GraduationCap size={20} /> Educación
+              <GraduationCap size={20} /> Education
             </h3>
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">

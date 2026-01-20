@@ -59,7 +59,7 @@ export function Skills({ variant = "minimal" }: SkillsProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-xl font-bold mb-6 text-primary">Habilidades Técnicas</h2>
+          <h2 className="text-xl font-bold mb-6 text-primary">Technical Skills</h2>
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             {skills.map((skill) => (
               <div key={skill} className="flex items-center gap-2">

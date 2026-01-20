@@ -40,7 +40,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
                   onClick={(e) => smoothScroll(e, "#contact")}
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
                 >
-                  Contáctame <ArrowRight size={16} />
+                  Contact Me <ArrowRight size={16} />
                 </Link>
                 
                 <a
@@ -85,7 +85,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
                 </div>
                 
                 <p className="text-white text-sm font-medium leading-tight">
-                  Disponible en <br />
+                  Available in <br />
                   <span className="text-lg font-bold">{personalInfo.location}</span>
                 </p>
               </div>
@@ -148,7 +148,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
               onClick={(e) => smoothScroll(e, "#projects")}
               className="group inline-flex items-center gap-2 text-primary font-semibold hover:opacity-80 transition-opacity"
             >
-              Ver Proyectos
+              View Projects
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
 
@@ -160,7 +160,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
               download
               className="text-muted-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5"
             >
-              <FileText size={18} /> Descargar CV
+              <FileText size={18} /> Download CV
             </a>
 
             <div className="h-4 w-px bg-border hidden sm:block" /> 

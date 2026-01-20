@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Luciano Rodriguez | Desarrollador Web",
-  description: "Portfolio de Luciano Rodriguez. Desarrollador Frontend especializado en Next.js y React.",
+  title: "Luciano Rodriguez | Frontend Developer",
+  description: "Luciano Rodriguez's Portfolio. Frontend Developer specialized in Next.js and React.",
+  keywords: ["Luciano Rodriguez", "Frontend Developer", "Next.js", "React", "Portfolio", "Argentina", "PostgreSQL", "TypeScript", "Git", "Node.js"],
 };
 
 export default function RootLayout({
@@ -24,7 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
+    // CAMBIO IMPORTANTE: lang="en" para SEO y accesibilidad
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >

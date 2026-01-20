@@ -1,3 +1,10 @@
+export interface GalleryItem {
+  url: string;
+  type?: "image" | "video";
+  description?: string;
+  thumbnail?: string;
+}
+
 export interface Project {
   title: string;
   description: string;
@@ -5,7 +12,7 @@ export interface Project {
   link: string;
   repo: string | null; 
   image?: string;      
-  gallery?: string[];
+  gallery?: GalleryItem[];
   isPrivate?: boolean; 
 }
 
@@ -81,10 +88,52 @@ export const portfolioData: PortfolioData = {
       repo: null,
       image: "/nutrigo/nutrigo-club.webp",
       gallery: [
-        "/nutrigo/nutrigo-club.webp",     
-        "/sistema-dashboard.png",   
-        "/sistema-stock.png",       
-        "/sistema-qr.png"           
+        { url: "/nutrigo/nutrigo-club.webp" },     
+        { 
+          url: "/nutrigo/nutrigo-invitado.mp4", 
+          type: "video", 
+          description: "Guest View: Allows browsing and ordering as a guest. Users can register to unlock a 10% discount on their first purchase. A Supabase Edge Function automatically updates their status to a standard membership after the initial transaction." 
+        },
+        { 
+          url: "/nutrigo/nutrigo-socio.mp4", 
+          type: "video", 
+          description: "Member View: Registered users access a digital ID with a scannable QR for verification. Features include real-time point tracking, unified purchase history (online & physical), and access to exclusive member pricing. Every purchase automatically accumulates loyalty points." 
+        },
+        { 
+          url: "/nutrigo/admin-login.mp4", 
+          type: "video", 
+          description: "Admin Panel: Secure login flow powered by Supabase Auth (demonstrating error handling on failed attempts) and redirection to the main dashboard." 
+        },
+        { 
+          url: "/nutrigo/partners-view.mp4", 
+          type: "video", 
+          description: "Admin - Partners: Management of corporate agreements. Configures discounts and membership validity periods. Includes a re-validation logic requiring users to re-scan a QR code once their active period expires." 
+        },
+        { 
+          url: "/nutrigo/pos-view.mp4", 
+          type: "video", 
+          description: "Admin - POS System: Point of Sale interface featuring quick product editing, cart with real-time stock validation, and customer assignment (lookup or quick-create). Supports multiple payment methods and handles automatic discount application based on membership type." 
+        },
+        { 
+          url: "/nutrigo/orders-view.mp4", 
+          type: "video", 
+          description: "Admin - Orders: Unified view of all transactions (online & in-store). Allows editing payment methods, re-generating tickets (view/download/print), and advanced filtering by date, payment type, or specific order ID." 
+        },
+        { 
+          url: "/nutrigo/products-view.mp4", 
+          type: "video", 
+          description: "Admin - Products: Full CRUD for inventory. Features include image upload (auto-converted to WebP), tag management for client-side filtering, 'Promotion Mode' (bypassing standard discounts), and generation of printable QRs for quick scanning at the register." 
+        },
+        { 
+          url: "/nutrigo/arca-view.mp4", 
+          type: "video", 
+          description: "Admin - Billing: Toggle in configuration to enable official invoicing integration via ARCA (Electronic Billing) directly within the orders section." 
+        },
+        { 
+          url: "/nutrigo/config-view.mp4", 
+          type: "video", 
+          description: "Admin - Configuration: Global settings control. Allows updating client-side app links, editing the automated WhatsApp message template, and defining loyalty point rates (differentiating accumulation logic between standard users and corporate partners)." 
+        },
       ],
     },
     {
@@ -95,9 +144,9 @@ export const portfolioData: PortfolioData = {
       repo: "https://github.com/LucianoR23/teslo-shop", 
       image: "/shop/teslo-shop.jpg",
       gallery: [
-        "/shop/teslo-shop.jpg",     
-        "/shop/teslo-item.png",   
-        "/shop/teslo-cart.png",
+        { url: "/shop/teslo-shop.jpg" },     
+        { url: "/shop/teslo-item.png" },   
+        { url: "/shop/teslo-cart.png" },
       ],
     },
     {
@@ -108,9 +157,9 @@ export const portfolioData: PortfolioData = {
       repo: "https://github.com/LucianoR23/ticket-program-sockets",
       image: "/tickets/tickets-pantalla.png",
       gallery: [
-        "/tickets/tickets-pantalla.png",          
-        "/tickets/tickets-generar.png",     
-        "/tickets/tickets-atender.png",   
+        { url: "/tickets/tickets-pantalla.png" },          
+        { url: "/tickets/tickets-generar.png" },     
+        { url: "/tickets/tickets-atender.png" },   
       ],
     },
     {
@@ -129,8 +178,8 @@ export const portfolioData: PortfolioData = {
       repo: null,
       image: "/calendar/calendar-app.jpg",
       gallery: [   
-        "/calendar/calendar-login.png",   
-        "/calendar/calendar-example.png",
+        { url: "/calendar/calendar-login.png" },   
+        { url: "/calendar/calendar-example.png" },
       ],
     },
   ],

@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolio";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
-import { ThemeToggle } from "@/components/ui/ThemeToggle"; // <--- 1. Importar el componente
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Footer() {
   const { personalInfo, socials } = portfolioData;
@@ -20,10 +20,10 @@ export function Footer() {
           className="space-y-8"
         >
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-            ¿Tienes un proyecto en mente?
+            Have a project in mind?
           </h2>
           <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-            Actualmente estoy disponible para nuevos desafíos. Ya sea para contratarme o simplemente para saludar, mi bandeja de entrada está abierta.
+            I&apos;m currently available for new challenges. Whether you want to hire me or just say hi, my inbox is open.
           </p>
           
           <div className="flex justify-center gap-4">
@@ -32,11 +32,10 @@ export function Footer() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
             >
               <Mail size={18} />
-              Envíame un correo
+              Send me an email
             </Link>
           </div>
 
-          {/* --- ZONA DE ICONOS --- */}
           <div className="flex justify-center items-center gap-6 pt-8">
              <Link href={socials.github} target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <GithubIcon size={24} />
@@ -45,17 +44,15 @@ export function Footer() {
                 <LinkedinIcon size={24} />
              </Link>
 
-             {/* Separador vertical sutil */}
              <div className="h-5 w-px bg-border" />
 
-             {/* Botón de Tema */}
              <div className="text-muted-foreground hover:text-primary transition-colors">
                 <ThemeToggle />
              </div>
           </div>
 
           <p className="text-sm text-muted-foreground pt-8">
-            © {new Date().getFullYear()} {personalInfo.name}. Creado con Next.js & Tailwind.
+            © {new Date().getFullYear()} {personalInfo.name}. Built with Next.js & Tailwind.
           </p>
         </motion.div>
       </div>
