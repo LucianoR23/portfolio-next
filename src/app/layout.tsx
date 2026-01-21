@@ -36,9 +36,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
         >
-        <div className="fixed top-0 left-0 w-full h-20 bg-linear-to-b from-background to-transparent z-50 pointer-events-none" />
+        <div className="fixed top-0 left-0 w-full h-20 bg-linear-to-b from-background to-transparent z-50 pointer-events-none print:hidden" />
         {children}
-        <div className="fixed bottom-0 left-0 w-full h-20 bg-linear-to-t from-background to-transparent z-50 pointer-events-none" />
+        <div className="fixed bottom-0 left-0 w-full h-20 bg-linear-to-t from-background to-transparent z-50 pointer-events-none print:hidden" />
         </ThemeProvider>
       </body>
     </html>

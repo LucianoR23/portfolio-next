@@ -59,7 +59,7 @@ export const portfolioData: PortfolioData = {
     location: "Corrientes, Argentina",
     email: "luciano.rodriguez.dev@gmail.com",
     availability: "Available for freelance projects",
-    cv: "/cv_luciano_rodriguez.pdf",
+    cv: "/cv.pdf",
   },
   socials: {
     github: "https://github.com/LucianoR23",
