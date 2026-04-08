@@ -53,7 +53,7 @@ export interface PortfolioData {
 export const portfolioData: PortfolioData = {
   personalInfo: {
     name: "Luciano Rodriguez",
-    tagline: "Junior Frontend Developer. Building modern interfaces and seamless user experiences.",
+    tagline: "Frontend Developer. Building modern interfaces and seamless user experiences.",
     description:
       "Passionate developer focused on creating tools that solve real-world problems. Currently working at TelCo SAPEM as a QA Analyst, pursuing a degree in Information Systems, and managing personal software projects.",
     location: "Corrientes, Argentina",

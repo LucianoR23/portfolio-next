@@ -49,7 +49,7 @@ export default function CVPage() {
             <Link href={socials.github} target="_blank" className="flex items-center gap-1 hover:underline">
               <Github size={12} /> GitHub
             </Link>
-            <Link href="https://luciano-rodriguez.vercel.app" target="_blank" className="flex items-center gap-1 hover:underline">
+            <Link href="https://portfolio.lemydev.com" target="_blank" className="flex items-center gap-1 hover:underline">
               <Globe size={12} /> Portfolio
             </Link>
           </div>
