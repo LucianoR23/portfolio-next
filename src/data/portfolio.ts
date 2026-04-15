@@ -78,6 +78,18 @@ export const portfolioData: PortfolioData = {
     "MongoDB",
   ],
   projects: [
+    {                                                                                                                                                                  
+      title: "RentAR Admin",
+      description: "Internal rental management system built for the Argentine real estate market. Centralizes property administration, contracts, payments, AFIP electronic invoicing (type A and B with CAE), rent price updates via ICL/IPC indices through Arquiler integration, automated email alerts and PDF reports. Self-hosted on Oracle Cloud VPS with Coolify.",
+      tags: ["Next.js", "TypeScript", "PostgreSQL", "Coolify"],
+      link: "https://rentar-fliamor.lemydev.com/",  
+      repo: "https://github.com/LucianoR23/rentar-fliamor",  
+      image: "/rentar/rentar-primary.webp",  
+      gallery: [
+        { url: "/rentar/rentar-admin.mp4", type: "video", description: "Project demo" },
+      ],
+      isPrivate: false,
+    },
     {
       title: "Commercial Management System (SaaS)",
       description:
@@ -186,9 +198,9 @@ export const portfolioData: PortfolioData = {
   experience: [
     {
       company: "TelCo SAPEM",
-      role: "QA Analyst",
+      role: "Frontend Developer & QA Analyst",
       period: "02/2025 - Present",
-      description: "Conducting exhaustive manual testing in development environments. I leverage my programming background to inspect technical faults, streamline developer workflows, and lead training on new feature implementations."
+      description: "Building internal systems with Vue and maintaining existing projects. Conducting manual testing in development environments, leveraging my programming background to inspect technical faults and streamline developer workflows. Also working with Go for backend tasks."
     },
     {
       company: "NutriGo Club",

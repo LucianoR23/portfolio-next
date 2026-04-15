@@ -68,10 +68,13 @@ export function Navbar() {
         style={{
             borderRadius: 9999,
         }}
+        initial={{
+            gap: 0
+        }}
         animate={{
             width: isExpanded ? "auto" : 48,
             height: 48,
-            padding: isExpanded ? "0 6px" : "0", 
+            padding: isExpanded ? "0 6px" : "0",
             gap: isExpanded ? 4 : 0
         }}
       >
