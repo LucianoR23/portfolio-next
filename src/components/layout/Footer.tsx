@@ -5,7 +5,6 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolio";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Footer() {
   const { personalInfo, socials } = portfolioData;
@@ -43,12 +42,6 @@ export function Footer() {
              <Link href={socials.linkedin} target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <LinkedinIcon size={24} />
              </Link>
-
-             <div className="h-5 w-px bg-border" />
-
-             <div className="text-muted-foreground hover:text-primary transition-colors">
-                <ThemeToggle />
-             </div>
           </div>
 
           <p className="text-sm text-muted-foreground pt-8">

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Home, Code, Mail, Menu, FolderGit2, BriefcaseBusiness } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const navItems = [
   { name: "Home", href: "#top", icon: Home },
@@ -106,6 +107,8 @@ export function Navbar() {
                         </Link>
                     );
                 })}
+                <div className="w-px h-6 bg-white/20 mx-1" />
+                <ThemeToggle />
             </motion.div>
           ) : (
             <motion.div
