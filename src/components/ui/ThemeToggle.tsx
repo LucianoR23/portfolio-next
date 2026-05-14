@@ -4,6 +4,7 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
+import { scanlineSweepTransition } from "@/lib/scanline-sweep-transition";
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -17,9 +18,19 @@ export function ThemeToggle() {
 
   const isDark = resolvedTheme === "dark";
 
+  const handleToggle = () => {
+    const next = isDark ? "light" : "dark";
+    scanlineSweepTransition(() => {
+      const root = document.documentElement;
+      root.classList.toggle("dark", next === "dark");
+      root.style.colorScheme = next;
+      setTheme(next);
+    });
+  };
+
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={handleToggle}
       className="cursor-pointer relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-secondary/80 transition-colors focus:outline-none"
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
