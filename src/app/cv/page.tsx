@@ -100,7 +100,7 @@ export default function CVPage() {
                       {proj.tags.slice(0, 4).join(" • ")}
                     </p>
                     <p className="text-xs text-neutral-600 leading-snug text-justify">
-                      {proj.description.substring(0, 160)}...
+                      {proj.cvDescription ?? `${proj.description.substring(0, 160)}...`}
                     </p>
                   </div>
                 ))}

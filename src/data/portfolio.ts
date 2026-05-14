@@ -11,9 +11,10 @@ export interface Project {
   tags: string[];
   link: string;
   repo: string | null; 
-  image?: string;      
+  image?: string;
   gallery?: GalleryItem[];
-  isPrivate?: boolean; 
+  isPrivate?: boolean;
+  cvDescription?: string;
 }
 
 export interface ExperienceItem {
@@ -76,6 +77,9 @@ export const portfolioData: PortfolioData = {
     "QA Testing",
     "Postman",
     "MongoDB",
+    "Golang",
+    "Supabase",
+    "WebSockets",
   ],
   projects: [
     {                                                                                                                                                                  
@@ -84,19 +88,21 @@ export const portfolioData: PortfolioData = {
       tags: ["Next.js", "TypeScript", "PostgreSQL", "Coolify"],
       link: "https://rentar-fliamor.lemydev.com/",  
       repo: "https://github.com/LucianoR23/rentar-fliamor",  
-      image: "/rentar/rentar-primary.webp",  
+      image: "/rentar/rentar-primary.webp",
       gallery: [
         { url: "/rentar/rentar-admin.mp4", type: "video", description: "Project demo" },
       ],
       isPrivate: false,
+      cvDescription: "Real estate management platform with AFIP electronic invoicing, ICL/IPC rent updates, and automated PDF reports. Self-hosted on Oracle Cloud.",
     },
     {
       title: "Commercial Management System (SaaS)",
       description:
         "A comprehensive Progressive Web App (PWA) designed to digitize the entire operation of a natural food franchise. The platform merges a robust admin dashboard for business control with a mobile experience for customers, centralizing sales, inventory, and loyalty programs into a single scalable architecture.",
       tags: ["Next.js", "Supabase", "TypeScript"],
-      isPrivate: true, 
-      link: "#", 
+      isPrivate: true,
+      cvDescription: "PWA SaaS for a natural food franchise: POS, inventory, loyalty program with QR membership, and ARCA electronic billing integration.",
+      link: "#",
       repo: null,
       image: "/nutrigo/nutrigo-club.webp",
       gallery: [
@@ -156,10 +162,11 @@ export const portfolioData: PortfolioData = {
       repo: "https://github.com/LucianoR23/teslo-shop", 
       image: "/shop/teslo-shop.jpg",
       gallery: [
-        { url: "/shop/teslo-shop.jpg" },     
-        { url: "/shop/teslo-item.png" },   
+        { url: "/shop/teslo-shop.jpg" },
+        { url: "/shop/teslo-item.png" },
         { url: "/shop/teslo-cart.png" },
       ],
+      cvDescription: "Full e-commerce with auth, persistent cart, PayPal sandbox integration, and admin panel for product and order management.",
     },
     {
       title: "Ticket System (Sockets)",
@@ -200,12 +207,12 @@ export const portfolioData: PortfolioData = {
       company: "TelCo SAPEM",
       role: "Frontend Developer & QA Analyst",
       period: "02/2025 - Present",
-      description: "Building internal systems with Vue and maintaining existing projects. Conducting manual testing in development environments, leveraging my programming background to inspect technical faults and streamline developer workflows. Also working with Go for backend tasks."
+      description: "Developed an internal meeting room reservation web app with authentication, an interactive calendar for booking, and an admin approval workflow. Conducted manual QA testing across internal systems, identifying and reporting bugs in pre-production environments. Leveraged my development background to inspect technical faults directly and accelerate fix cycles with the dev team. Also working with Go for backend tasks."
     },
     {
       company: "NutriGo Club",
       role: "Co-Founder & Full Stack Developer",
-      period: "12/2025 - Present", 
+      period: "11/2025 - Present",
       description: "Leading the business technology strategy. End-to-end design and development of a private SaaS platform for inventory, sales, and analytics, automating key operational processes."
     },
   ],
@@ -223,7 +230,7 @@ export const portfolioData: PortfolioData = {
     {
       institution: "Teclab Institute",
       degree: "Higher Technical Degree in Programming",
-      period: "2026 - Present"
+      period: "2026 - 07/2028 (Expected)"
     },
   ]
 };
