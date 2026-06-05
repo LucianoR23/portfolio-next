@@ -22,6 +22,12 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
   const hasGallery = project.gallery && project.gallery.length > 0;
   const hasLink = project.link && project.link !== "#";
   const hasRepo = project.repo && project.repo !== "#";
+  const repoLinks =
+    project.repos && project.repos.length > 0
+      ? project.repos
+      : hasRepo
+        ? [{ label: "Code", url: project.repo! }]
+        : [];
 
   return (
     <>
@@ -99,8 +105,8 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 mt-auto">
-            
+          <div className="flex flex-wrap items-center gap-3 mt-auto">
+
             {hasLink ? (
                <Link href={project.link!} target="_blank" className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:opacity-90 shadow-sm transition-all hover:-translate-y-0.5">
                   <ExternalLink size={16} /> View Demo
@@ -118,11 +124,12 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
               </button>
             )}
 
-            {!project.isPrivate && hasRepo && (
-              <Link href={project.repo!} target="_blank" className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground font-medium text-sm hover:bg-secondary/80 border border-border/50 transition-colors">
-                <GithubIcon size={16} /> Code
-              </Link>
-            )}
+            {!project.isPrivate &&
+              repoLinks.map((repo) => (
+                <Link key={repo.url} href={repo.url} target="_blank" className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground font-medium text-sm hover:bg-secondary/80 border border-border/50 transition-colors">
+                  <GithubIcon size={16} /> {repo.label}
+                </Link>
+              ))}
           </div>
         </div>
       </motion.div>

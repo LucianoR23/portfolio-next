@@ -5,12 +5,18 @@ export interface GalleryItem {
   thumbnail?: string;
 }
 
+export interface RepoLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   title: string;
   description: string;
   tags: string[];
   link: string;
-  repo: string | null; 
+  repo: string | null;
+  repos?: RepoLink[];
   image?: string;
   gallery?: GalleryItem[];
   isPrivate?: boolean;
@@ -82,7 +88,30 @@ export const portfolioData: PortfolioData = {
     "WebSockets",
   ],
   projects: [
-    {                                                                                                                                                                  
+    {
+      title: "Ahorro",
+      description:
+        "Mobile-first PWA for shared household finances. Multi-member households (couples, families, roommates) split expenses and instantly see who owes what, with automatic net-debt calculation and settlement tracking. Features real credit-card installments (closing & due dates per installment), multi-currency support (ARS/USD/EUR) with frozen exchange rates, self-materializing recurring income/expenses via background workers, monthly email reports, and an AI-analysis prompt exporter. Full auth, push notifications, dark mode, and installable PWA. Go domain-driven backend (repository → service → handler) with sqlc and pgx; ~20MB Docker image self-hosted on a VPS with Coolify + Traefik.",
+      tags: ["Next.js", "Go", "PostgreSQL", "PWA"],
+      link: "https://ahorro.lemydev.com",
+      repo: null,
+      repos: [
+        { label: "Frontend", url: "https://github.com/LucianoR23/ahorra_app" },
+        { label: "Backend", url: "https://github.com/LucianoR23/api_go_ahorro" },
+      ],
+      image: "/ahorro/ahorro-reportes.png",
+      gallery: [
+        { url: "/ahorro/ahorro-login.jpg" },
+        { url: "/ahorro/ahorro-dashboard.jpg" },
+        { url: "/ahorro/ahorro-menu.jpg" },
+        { url: "/ahorro/ahorro-reportes.png" },
+        { url: "/ahorro/ahorro-export-ia.png" },
+      ],
+      isPrivate: false,
+      cvDescription:
+        "Mobile-first PWA for shared household finances: net-debt settlement, real credit-card installments, multi-currency with frozen rates, recurring transactions via workers, and email/AI reporting. Go domain-driven backend, ~20MB Docker image self-hosted on a VPS.",
+    },
+    {
       title: "RentAR Admin",
       description: "Internal rental management system built for the Argentine real estate market. Centralizes property administration, contracts, payments, AFIP electronic invoicing (type A and B with CAE), rent price updates via ICL/IPC indices through Arquiler integration, automated email alerts and PDF reports. Self-hosted on Oracle Cloud VPS with Coolify.",
       tags: ["Next.js", "TypeScript", "PostgreSQL", "Coolify"],
