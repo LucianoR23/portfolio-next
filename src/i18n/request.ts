@@ -1,6 +1,6 @@
 import { getRequestConfig } from "next-intl/server";
 import { hasLocale } from "next-intl";
-import { routing } from "./routing";
+import { routing, timeZone } from "./routing";
 
 // Provee los mensajes (catálogo de strings de UI) por request, según el locale.
 export default getRequestConfig(async ({ requestLocale }) => {
@@ -11,7 +11,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    timeZone: "America/Argentina/Buenos_Aires",
+    timeZone,
     messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });

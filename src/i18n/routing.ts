@@ -18,3 +18,9 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+// Zona horaria global de la app. Fuente única usada tanto por el config de
+// server (request.ts) como por el NextIntlClientProvider del lado cliente
+// (locale-provider.tsx). Sin pasarla al provider de cliente, next-intl emite
+// el warning ENVIRONMENT_FALLBACK al prerenderizar componentes cliente.
+export const timeZone = "America/Argentina/Buenos_Aires";

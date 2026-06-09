@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import { NextIntlClientProvider } from "next-intl";
-import { routing, type Locale } from "@/i18n/routing";
+import { routing, timeZone, type Locale } from "@/i18n/routing";
 import enMessages from "../../../messages/en.json";
 import esMessages from "../../../messages/es.json";
 
@@ -65,7 +65,11 @@ export function LocaleProvider({
 
   return (
     <LocaleContext.Provider value={{ locale, switchLocale }}>
-      <NextIntlClientProvider locale={locale} messages={messagesByLocale[locale]}>
+      <NextIntlClientProvider
+        locale={locale}
+        timeZone={timeZone}
+        messages={messagesByLocale[locale]}
+      >
         {children}
       </NextIntlClientProvider>
     </LocaleContext.Provider>
