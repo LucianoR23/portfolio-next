@@ -134,6 +134,25 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
                   {project.description}
                 </p>
 
+                {project.highlights && project.highlights.length > 0 && (
+                  <div className="mb-6">
+                    <h4 className="mb-3 text-sm font-semibold text-foreground">
+                      {t("highlights")}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {project.highlights.map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground"
+                        >
+                          <span className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-primary/70" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 <div className="mb-8 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span

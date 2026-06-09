@@ -23,6 +23,8 @@ export interface Project {
   gallery?: GalleryItem[];
   isPrivate?: boolean;
   cvDescription?: string;
+  /** Bullets técnicos opcionales; se muestran como sección en el modal de detalle. */
+  highlights?: string[];
 }
 
 export interface ExperienceItem {
@@ -116,6 +118,32 @@ const en: PortfolioData = {
       isPrivate: false,
       cvDescription:
         "Mobile-first PWA for shared household finances: net-debt settlement, real credit-card installments, multi-currency with frozen rates, recurring transactions via workers, and email/AI reporting. Go domain-driven backend, ~20MB Docker image self-hosted on a VPS.",
+    },
+    {
+      title: "Soporte",
+      description:
+        "Centralized, multi-tenant ticketing backend for the Lemydev app ecosystem (RentAR, Ahorro, NutriGo…): every app collects bug reports and improvement requests through one shared service and one operator panel. Two backends share a single Postgres schema — a Go API (chi, pgx, River Queue) serves integrating apps via a published typed SDK, while a Next.js 16 + Drizzle admin panel handles triage. Self-hosted on an Oracle Cloud ARM VPS with Coolify.",
+      tags: ["Go", "Next.js", "PostgreSQL", "Multi-tenant"],
+      link: "#",
+      repo: null,
+      isPrivate: true,
+      image: "/soporte/soporte-login.png",
+      gallery: [
+        { url: "/soporte/soporte-login.png" },
+        { url: "/soporte/soporte-bandeja.png" },
+        { url: "/soporte/soporte-apps.png" },
+        { url: "/soporte/soporte-metricas.png" },
+        { url: "/soporte/soporte-video.mp4", type: "video", description: "Project demo" },
+      ],
+      highlights: [
+        "Two-backend, one-schema design: the Go API serves integrating apps while the Next.js panel reads Postgres directly via Drizzle, kept consistent by the shared soporte schema.",
+        "Atomic ticket creation: files are validated, uploaded to R2, then ticket, attachments and River jobs are committed in a single DB transaction — jobs only fire if the commit succeeds.",
+        "Defense-in-depth file validation by magic bytes (PNG/JPEG/WebP/MP4), distrusting client extension and Content-Type, no ffmpeg. Limits: 3 files, 5 MB images, 20 MB video.",
+        "Layered rate limiting as chi middleware — per-IP, per-app and per-reporter, with separate ceilings for writes and reads.",
+        "Hardened security: hashed app keys, per-app Origin pinning, presigned R2 URLs, and split liveness/readiness health checks.",
+      ],
+      cvDescription:
+        "Multi-tenant ticketing backend for an app ecosystem: a Go API (chi, pgx, River Queue) serves integrating apps through a published typed SDK while a Next.js + Drizzle admin panel handles operator triage — both sharing one Postgres schema. Atomic ticket creation, magic-byte file validation, layered rate limiting, and presigned R2 storage.",
     },
     {
       title: "RentAR Admin",
@@ -256,6 +284,8 @@ type ProjectText = {
   cvDescription?: string;
   // Por índice de galería; undefined = sin descripción (se mantiene la base).
   galleryDescriptions?: (string | undefined)[];
+  // Traducción de los highlights, en el mismo orden que la base.
+  highlights?: string[];
 };
 
 // Indexado por el `title` (en inglés) del proyecto base.
@@ -265,6 +295,26 @@ const esProjects: Record<string, ProjectText> = {
       "PWA mobile-first para finanzas compartidas del hogar. Hogares con varios miembros (parejas, familias, compañeros de piso) dividen gastos y ven al instante quién debe qué, con cálculo automático de deuda neta y seguimiento de saldos. Incluye cuotas reales de tarjeta de crédito (fechas de cierre y vencimiento por cuota), soporte multimoneda (ARS/USD/EUR) con tipos de cambio congelados, ingresos/gastos recurrentes que se materializan solos mediante workers en segundo plano, reportes mensuales por email y un exportador de prompts para análisis con IA. Autenticación completa, notificaciones push, modo oscuro y PWA instalable. Backend en Go orientado a dominios (repository → service → handler) con sqlc y pgx; imagen Docker de ~20MB self-hosted en un VPS con Coolify + Traefik.",
     cvDescription:
       "PWA mobile-first para finanzas compartidas del hogar: liquidación de deuda neta, cuotas reales de tarjeta, multimoneda con tipos congelados, transacciones recurrentes vía workers y reportes por email/IA. Backend en Go orientado a dominios, imagen Docker de ~20MB self-hosted en un VPS.",
+  },
+  Soporte: {
+    description:
+      "Backend de ticketing centralizado y multi-tenant para el ecosistema de apps Lemydev (RentAR, Ahorro, NutriGo…): cada app recolecta reportes de bugs y solicitudes de mejora a través de un único servicio compartido y un solo panel de operadores. Dos backends comparten un mismo schema de Postgres — una API en Go (chi, pgx, River Queue) atiende a las apps integradas mediante un SDK tipado publicado, mientras un panel admin en Next.js 16 + Drizzle se encarga de la triage. Self-hosted en un VPS ARM de Oracle Cloud con Coolify.",
+    cvDescription:
+      "Backend de ticketing multi-tenant para un ecosistema de apps: una API en Go (chi, pgx, River Queue) atiende a las apps integradas mediante un SDK tipado publicado, y un panel admin en Next.js + Drizzle gestiona la triage de operadores — ambos compartiendo un mismo schema de Postgres. Creación atómica de tickets, validación de archivos por magic bytes, rate limiting por capas y almacenamiento R2 con URLs firmadas.",
+    galleryDescriptions: [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      "Demo del proyecto",
+    ],
+    highlights: [
+      "Diseño de dos backends y un schema: la API en Go atiende a las apps integradas mientras el panel en Next.js lee Postgres directo vía Drizzle, consistentes gracias al schema soporte compartido.",
+      "Creación atómica de tickets: los archivos se validan, se suben a R2 y luego ticket, adjuntos y jobs de River se confirman en una sola transacción de DB — los jobs solo se disparan si el commit tiene éxito.",
+      "Validación de archivos en profundidad por magic bytes (PNG/JPEG/WebP/MP4), desconfiando de la extensión y el Content-Type del cliente, sin ffmpeg. Límites: 3 archivos, 5 MB imágenes, 20 MB video.",
+      "Rate limiting por capas como middleware de chi — por IP, por app y por reporter, con techos distintos para escrituras y lecturas.",
+      "Seguridad endurecida: app keys hasheadas, Origin pinning por app, URLs firmadas de R2 y health checks separados de liveness/readiness.",
+    ],
   },
   "RentAR Admin": {
     description:
@@ -341,6 +391,7 @@ const es: PortfolioData = {
       title: t.title ?? p.title,
       description: t.description,
       cvDescription: t.cvDescription ?? p.cvDescription,
+      highlights: t.highlights ?? p.highlights,
       gallery: p.gallery?.map((g, i) => {
         const desc = t.galleryDescriptions?.[i];
         return desc !== undefined ? { ...g, description: desc } : g;
