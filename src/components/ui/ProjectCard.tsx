@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { type Project } from "@/data/portfolio";
+import { useEntrance } from "@/lib/use-entrance";
 import { GithubIcon } from "@/components/ui/SocialIcons";
 import { ImageGallery } from "@/components/ui/ImageGallery";
 import Image from "next/image";
@@ -20,6 +21,15 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
   const t = useTranslations("ProjectCard");
   const isBento = variant === "bento";
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const entrance = useEntrance();
+  const fadeInView = entrance
+    ? {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { delay: index * 0.1 },
+      }
+    : {};
 
   const hasGallery = project.gallery && project.gallery.length > 0;
   const hasLink = project.link && project.link !== "#";
@@ -34,10 +44,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.1 }}
+        {...fadeInView}
         className={`
           group relative overflow-hidden rounded-2xl border border-border bg-card flex flex-col h-full
           ${!isBento && "md:grid md:grid-cols-2 md:gap-8 md:p-6 hover:bg-accent/5 transition-colors"}

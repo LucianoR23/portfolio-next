@@ -1,22 +1,22 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname, getPathname } from "@/i18n/navigation";
+import { useLocaleSwitcher } from "@/components/i18n/locale-provider";
 import { routing, type Locale } from "@/i18n/routing";
 
 export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
-  const pathname = usePathname();
+  const { switchLocale } = useLocaleSwitcher();
 
   const switchTo = (next: Locale) => {
     if (next === locale) return;
-    // Navegación dura a propósito: cambiar de idioma re-renderiza el layout
-    // raíz, y una nav "soft" haría que next-themes reinyecte su <script>
-    // anti-flash en el cliente (React 19 lo prohíbe). Una recarga real deja
-    // que el server pinte de cero con el lang y el tema correctos, sin flash.
-    // `pathname` viene sin prefijo de idioma; getPathname agrega el correcto.
-    const href = getPathname({ href: pathname, locale: next });
-    window.location.assign(href);
+    // Fundido solo del texto (la clase la consume globals.css). El cambio de
+    // idioma se dispara con el texto apagado (~315ms de la animación de 700ms),
+    // y NO navega de ruta → no re-monta el árbol, no hay pestañeo de recarga.
+    const root = document.documentElement;
+    root.classList.add("lang-switching");
+    window.setTimeout(() => switchLocale(next), 315);
+    window.setTimeout(() => root.classList.remove("lang-switching"), 720);
   };
 
   return (

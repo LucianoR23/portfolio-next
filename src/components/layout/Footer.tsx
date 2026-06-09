@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { getPortfolio } from "@/data/portfolio";
 import type { Locale } from "@/i18n/routing";
+import { useEntrance } from "@/lib/use-entrance";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
 import { DevSignature } from "@/components/ui/dev-signature";
 
@@ -13,16 +14,15 @@ export function Footer() {
   const locale = useLocale() as Locale;
   const t = useTranslations("Footer");
   const { personalInfo, socials } = getPortfolio(locale);
+  const entrance = useEntrance();
+  const fadeInView = entrance
+    ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+    : {};
 
   return (
     <footer id="contact" className="w-full py-3 border-t border-border bg-card/30">
       <div className="container mx-auto px-4 max-w-3xl text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="space-y-8"
-        >
+        <motion.div {...fadeInView} className="space-y-8">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
             {t("heading")}
           </h2>

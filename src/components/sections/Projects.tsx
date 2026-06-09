@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { getPortfolio } from "@/data/portfolio";
 import type { Locale } from "@/i18n/routing";
+import { useEntrance } from "@/lib/use-entrance";
 import { ProjectCard } from "@/components";
 
 const INITIAL_COUNT = 4;
@@ -18,6 +19,10 @@ export function Projects({ variant = "minimal" }: ProjectsProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("Projects");
   const { projects } = getPortfolio(locale);
+  const entrance = useEntrance();
+  const fadeInView = entrance
+    ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+    : {};
   const [showAll, setShowAll] = useState(false);
   const firstGroup = projects.slice(0, INITIAL_COUNT);
   const secondGroup = projects.slice(INITIAL_COUNT);
@@ -34,12 +39,7 @@ export function Projects({ variant = "minimal" }: ProjectsProps) {
   return (
     <section id="projects" className="w-full py-20 md:py-32">
       <div className={`container mx-auto px-4 ${variant === "bento" ? "max-w-6xl" : "max-w-3xl"}`}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
+        <motion.div {...fadeInView} className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             {t("title")}
           </h2>

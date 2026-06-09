@@ -105,3 +105,42 @@ body {
 * {
   border-color: var(--border);
 }
+
+
+/* ============================================================
+   Cambio de idioma — parpadeo solo del texto
+   Al alternar EN/ES, el contenido se intercambia en el lugar (navegación
+   soft, sin recarga). Esta clase la activa el LanguageSwitcher por ~380ms y
+   hace un breve parpadeo de opacidad SOLO en elementos de texto. Imágenes,
+   video, íconos, controles y la estructura quedan fijos en su lugar.
+   ============================================================ */
+@keyframes lang-flicker {
+  /* 1) Apaga mostrando el idioma viejo — ease-out (el que sale) */
+  0% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  40% {
+    opacity: 0;
+  }
+  /* Apagado sostenido: el LanguageSwitcher cambia el idioma en esta ventana.
+     2) Prende mostrando el idioma nuevo — ease-in (el que entra), y termina ahí */
+  50% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Easing definido por keyframe (arriba); base linear para no pisarlo. */
+.lang-switching :where(h1, h2, h3, h4, h5, h6, p, li) {
+  animation: lang-flicker 700ms linear both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-switching :where(h1, h2, h3, h4, h5, h6, p, li) {
+    animation: none;
+  }
+}

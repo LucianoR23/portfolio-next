@@ -46,7 +46,6 @@ export interface PortfolioData {
     location: string;
     email: string;
     availability?: string;
-    cv: string;
   };
   socials: {
     github: string;
@@ -74,7 +73,6 @@ const en: PortfolioData = {
     location: "Corrientes, Argentina",
     email: "luciano.rodriguez.dev@gmail.com",
     availability: "Available for freelance projects",
-    cv: "/cv.pdf",
   },
   socials: {
     github: "https://github.com/LucianoR23",

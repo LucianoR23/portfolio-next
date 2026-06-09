@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { getPortfolio } from "@/data/portfolio";
 import type { Locale } from "@/i18n/routing";
+import { useEntrance } from "@/lib/use-entrance";
 
 interface SkillsProps {
   variant?: "bento" | "minimal" | string;
@@ -13,6 +14,10 @@ export function Skills({ variant = "minimal" }: SkillsProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("Skills");
   const { skills } = getPortfolio(locale);
+  const entrance = useEntrance();
+  const fadeInView = entrance
+    ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+    : {};
 
   const half = Math.ceil(skills.length / 2);
   const row1 = skills.slice(0, half);
@@ -58,11 +63,7 @@ export function Skills({ variant = "minimal" }: SkillsProps) {
   return (
     <section className="w-full py-10">
       <div className="container mx-auto px-4 max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <motion.div {...fadeInView}>
           <h2 className="text-xl font-bold mb-6 text-primary">{t("technicalSkills")}</h2>
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             {skills.map((skill) => (

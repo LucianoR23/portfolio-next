@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { getPortfolio } from "@/data/portfolio";
 import type { Locale } from "@/i18n/routing";
+import { useEntrance } from "@/lib/use-entrance";
 import { GraduationCap, Calendar, BriefcaseBusiness } from "lucide-react";
 
 interface ExperienceProps {
@@ -15,18 +16,26 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
   const t = useTranslations("Experience");
   const { experience, education } = getPortfolio(locale);
   const isBento = variant === "bento";
+  const entrance = useEntrance();
+  const fadeInView = entrance
+    ? { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+    : {};
+  const slideInView = (delay: number) =>
+    entrance
+      ? {
+          initial: { opacity: 0, x: -20 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          transition: { delay },
+        }
+      : {};
 
   return (
     <section id="experience" className="w-full py-20">
       <div className={`container mx-auto px-4 ${isBento ? 'max-w-6xl' : 'max-w-3xl'}`}>
         
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
+        <motion.div {...fadeInView} className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             {t("title")}
           </h2>
@@ -42,12 +51,9 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">
               {experience.map((item, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  {...slideInView(index * 0.1)}
                   className="relative"
                 >
                   
@@ -78,12 +84,9 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">
               {education.map((item, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  {...slideInView(index * 0.1)}
                   className="relative"
                 >
                   <span className="absolute -left-10.25 top-1 h-5 w-5 rounded-full border-4 border-background bg-muted-foreground" />

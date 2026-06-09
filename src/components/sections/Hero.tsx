@@ -5,10 +5,10 @@ import { ArrowRight, Mail, FileText } from "lucide-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { getPortfolio } from "@/data/portfolio";
-import type { Locale } from "@/i18n/routing";
-import { Link as LocaleLink } from "@/i18n/navigation";
+import { routing, type Locale } from "@/i18n/routing";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { smoothScroll } from "@/lib/utils";
+import { useEntrance } from "@/lib/use-entrance";
 
 interface HeroProps {
   variant?: "bento" | "minimal";
@@ -18,11 +18,26 @@ export function Hero({ variant = "minimal" }: HeroProps) {
   const locale = useLocale() as Locale;
   const t = useTranslations("Hero");
   const { personalInfo, socials } = getPortfolio(locale);
+  const entrance = useEntrance();
+  // Href del CV según el idioma activo (el switch es por estado, no por ruta).
+  const cvHref = locale === routing.defaultLocale ? "/cv" : `/${locale}/cv`;
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  // Animación de entrada solo en la primera carga; al cambiar idioma no se
+  // repite (queda fijo y solo parpadea el texto).
+  const entranceProps = (duration: number, delay = 0) =>
+    entrance
+      ? {
+          initial: "hidden" as const,
+          animate: "visible" as const,
+          variants: fadeIn,
+          transition: { duration, delay },
+        }
+      : {};
 
   if (variant === "bento") {
     return (
@@ -30,10 +45,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeIn}
-              transition={{ duration: 0.5 }}
+              {...entranceProps(0.5)}
               className="md:col-span-2 bg-card border border-border p-8 rounded-2xl flex flex-col justify-center gap-4 shadow-sm"
             >
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary">{personalInfo.name}</h1>
@@ -48,21 +60,20 @@ export function Hero({ variant = "minimal" }: HeroProps) {
                   {t("contactMe")} <ArrowRight size={16} />
                 </Link>
 
-                <LocaleLink
-                  href="/cv"
+                <Link
+                  href={cvHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-secondary text-secondary-foreground border border-border font-medium hover:bg-secondary/80 transition-colors"
                 >
                   <FileText size={16} /> {t("cv")}
-                </LocaleLink>
+                </Link>
 
               </div>
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeIn}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              {...entranceProps(0.5, 0.1)}
               className="md:col-span-1 bg-card border border-border p-0 rounded-2xl flex items-end justify-center overflow-hidden relative min-h-60"
             >
               
@@ -97,10 +108,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
             
             
             <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeIn}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              {...entranceProps(0.5, 0.2)}
               className="md:col-span-3 bg-card border border-border p-6 rounded-2xl flex items-center justify-between"
             >
               <div className="flex gap-4 text-muted-foreground">
@@ -133,10 +141,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
     <section className="w-full py-24 md:py-40">
       <div className="container mx-auto px-4 max-w-3xl">
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeIn}
-          transition={{ duration: 0.6 }}
+          {...entranceProps(0.6)}
           className="space-y-6"
         >
           <div className="space-y-2">
@@ -159,12 +164,14 @@ export function Hero({ variant = "minimal" }: HeroProps) {
             <div className="h-4 w-px bg-border hidden sm:block" />
 
 
-            <LocaleLink
-              href="/cv"
+            <Link
+              href={cvHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5"
             >
               <FileText size={18} /> {t("downloadCv")}
-            </LocaleLink>
+            </Link>
 
             <div className="h-4 w-px bg-border hidden sm:block" /> 
 
