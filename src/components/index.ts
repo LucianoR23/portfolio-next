@@ -7,6 +7,7 @@ export * from './layout/Navbar'
 export * from './layout/Footer'
 
 export * from './ui/ProjectCard'
+export * from './ui/ProjectDetail'
 export * from './ui/SocialIcons'
 export * from './ui/ImageGallery'
 export * from './ui/LanguageSwitcher'

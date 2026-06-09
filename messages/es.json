@@ -23,7 +23,10 @@
     "title": "Proyectos destacados",
     "subtitle": "Una selección de soluciones que construí, desde herramientas de negocio hasta apps experimentales.",
     "showAll": "Ver todos ({count} más)",
-    "showLess": "Ver menos"
+    "showLess": "Ver menos",
+    "prev": "Proyecto anterior",
+    "next": "Proyecto siguiente",
+    "goToSlide": "Ir al proyecto"
   },
   "Experience": {
     "title": "Experiencia",
@@ -42,9 +45,12 @@
     "imageNotAvailable": "Imagen no disponible",
     "proprietary": "Software propietario",
     "viewGallery": "Ver galería",
+    "viewDetails": "Ver detalle",
     "viewDemo": "Ver demo",
     "viewScreens": "Ver pantallas",
     "confidential": "Confidencial",
+    "gallery": "Galería",
+    "close": "Cerrar",
     "code": "Código"
   },
   "Gallery": {

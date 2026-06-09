@@ -8,15 +8,24 @@ import { useTranslations } from "next-intl";
 import type { GalleryItem } from "@/data/portfolio";
 
 interface ImageGalleryProps {
-  images: (string | GalleryItem)[]; 
+  images: (string | GalleryItem)[];
   isOpen: boolean;
   onClose: () => void;
-  title?: string; 
+  title?: string;
+  initialIndex?: number;
 }
 
-export function ImageGallery({ images, isOpen, onClose, title = "Project" }: ImageGalleryProps) {
+export function ImageGallery({ images, isOpen, onClose, title = "Project", initialIndex = 0 }: ImageGalleryProps) {
   const t = useTranslations("Gallery");
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+
+  // Al abrir, posicionar en la imagen/video elegido desde el detalle.
+  // Ajuste de estado en render (patrón "valor previo") en vez de un efecto.
+  const [wasOpen, setWasOpen] = useState(isOpen);
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
+    if (isOpen) setCurrentIndex(initialIndex);
+  }
 
   const getCurrentData = (item: string | GalleryItem) => {
     if (typeof item === 'string') {

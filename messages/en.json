@@ -23,7 +23,10 @@
     "title": "Featured Projects",
     "subtitle": "A selection of solutions I've built, from business tools to experimental apps.",
     "showAll": "Show all ({count} more)",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "prev": "Previous project",
+    "next": "Next project",
+    "goToSlide": "Go to project"
   },
   "Experience": {
     "title": "Experience",
@@ -42,9 +45,12 @@
     "imageNotAvailable": "Image not available",
     "proprietary": "Proprietary Soft",
     "viewGallery": "View Gallery",
+    "viewDetails": "View details",
     "viewDemo": "View Demo",
     "viewScreens": "View Screens",
     "confidential": "Confidential",
+    "gallery": "Gallery",
+    "close": "Close",
     "code": "Code"
   },
   "Gallery": {

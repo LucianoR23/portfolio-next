@@ -25,6 +25,7 @@ This is a personal portfolio site built with **Next 16** (App Router), **React 1
   - **Content data** (`portfolio.ts`) → English is the neutral base holding all structural data (URLs, images, tags, dates, gallery). The Spanish overlay (`esProjects`/`esExperience`/`esEducation`) only overrides translatable text; `getPortfolio(locale)` merges them. To add a string: add the key to both JSON files. To translate content: edit the `es*` overlays.
   - For internal links that must respect the active locale, use `Link` from `@/i18n/navigation` (not `next/link`). The `LanguageSwitcher` (in the Navbar) swaps locale preserving the current path.
 - **Style variants:** The home page supports `"bento"` and `"minimal"` layout variants controlled by the `NEXT_PUBLIC_PORTFOLIO_STYLE` env var (defaults to `"minimal"`). Section components (`Hero`, `Skills`, `Projects`, `Experience`) accept a `variant` prop.
+- **Projects presentation:** `Projects.tsx` branches by variant into two internal components. `minimal` → vertical grid with "show all / show less" (`INITIAL_COUNT`). `bento` → a **drag carousel** (Embla, `embla-carousel-react`) with center-aligned slides, side peeks (non-selected slides scaled/dimmed), arrow + dot controls. In bento each `ProjectCard` is a clickable surface (no inline action buttons / no "view gallery" overlay) that opens `ProjectDetail` — a modal with the full description, tags, embedded gallery thumbnails, and demo/repo links. Clicking a thumbnail opens the existing `ImageGallery` lightbox at that index (`initialIndex` prop). A pointer-distance guard in `ProjectCard` distinguishes drag from click. To save vertical space as projects grow, prefer adding projects to the bento carousel rather than the minimal stack.
 - **Barrel exports:** `src/components/index.ts` re-exports all components. Imports use `@/components`.
 - **Path alias:** `@/*` maps to `./src/*`.
 - **Theme:** Dark/light mode via `next-themes` with `ThemeProvider` wrapping the app. Theme toggle is in `ThemeToggle.tsx`.
@@ -42,5 +43,5 @@ All routes live under `src/app/[locale]/`. There is no root `app/layout.tsx`; `a
 
 - `src/components/sections/` — Page sections (Hero, Skills, Projects, Experience)
 - `src/components/layout/` — Navbar, Footer
-- `src/components/ui/` — Reusable UI (ProjectCard, ImageGallery, ThemeToggle, SocialIcons, LanguageSwitcher)
+- `src/components/ui/` — Reusable UI (ProjectCard, ProjectDetail, ImageGallery, ThemeToggle, SocialIcons, LanguageSwitcher)
 - `src/components/theme/` — ThemeProvider wrapper

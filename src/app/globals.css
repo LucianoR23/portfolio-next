@@ -108,6 +108,32 @@ body {
 
 
 /* ============================================================
+   Scrollbar personalizada — usada en el modal de detalle de proyecto
+   para no romper la estética con la barra nativa del SO.
+   ============================================================ */
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background-color: var(--muted-foreground);
+  background-clip: padding-box;
+}
+
+
+/* ============================================================
    Cambio de idioma — parpadeo solo del texto
    Al alternar EN/ES, el contenido se intercambia en el lugar (navegación
    soft, sin recarga). Esta clase la activa el LanguageSwitcher por ~380ms y
