@@ -22,7 +22,17 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+
+  // Viewport < sm (640px): el nav expandido pasa a ocupar el ancho del hero.
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +57,7 @@ export function Navbar() {
   const isExpanded = !isScrolled || isHovered || isMobileOpen;
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center items-start pointer-events-none">
+    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center items-start pointer-events-none px-4 sm:px-0">
       <motion.nav
         ref={navRef}
         onHoverStart={() => setIsHovered(true)}
@@ -64,7 +74,7 @@ export function Navbar() {
         }}
         className={`
             pointer-events-auto cursor-pointer
-            w-fit mx-auto min-w-12
+            w-fit mx-auto min-w-12 max-w-full
             flex items-center justify-center
             bg-black/80 backdrop-blur-md border border-white/10 shadow-2xl
             overflow-hidden relative
@@ -76,7 +86,9 @@ export function Navbar() {
             gap: 0
         }}
         animate={{
-            width: isExpanded ? "auto" : 48,
+            // En mobile el nav expandido ocupa todo el ancho del hero (gutter px-4
+            // del wrapper); en desktop conserva su ancho compacto (auto).
+            width: isExpanded ? (isMobile ? "100%" : "auto") : 48,
             height: 48,
             padding: isExpanded ? "0 6px" : "0",
             gap: isExpanded ? 4 : 0
@@ -90,8 +102,8 @@ export function Navbar() {
                 initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                transition={{ duration: 0.3, ease: "easeOut" }} 
-                className="flex items-center gap-1 whitespace-nowrap px-1" 
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex items-center gap-1 whitespace-nowrap px-1 w-full justify-between sm:w-auto sm:justify-start"
             >
                 {navItems.map((item) => {
                     const Icon = item.icon;
@@ -103,7 +115,7 @@ export function Navbar() {
                                 smoothScroll(e, item.href);
                                 setIsMobileOpen(false);
                             }}
-                              className="relative px-4 py-2 rounded-full text-sm font-medium text-white/90 hover:bg-white/20 transition-colors flex items-center gap-2 group"
+                              className="relative px-2.5 py-2 sm:px-4 rounded-full text-sm font-medium text-white/90 hover:bg-white/20 transition-colors flex items-center gap-2 group"
                           >
                             <Icon size={16} className="text-white" />
                             <span className="hidden sm:inline">{t(item.key)}</span>

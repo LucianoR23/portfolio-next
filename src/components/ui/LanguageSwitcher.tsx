@@ -19,25 +19,41 @@ export function LanguageSwitcher() {
     window.setTimeout(() => root.classList.remove("lang-switching"), 720);
   };
 
+  // Siguiente locale en el ciclo (con 2 locales = el otro).
+  const idx = routing.locales.indexOf(locale);
+  const nextLocale = routing.locales[(idx + 1) % routing.locales.length];
+
   return (
-    <div className="flex items-center gap-0.5 rounded-full bg-white/10 p-0.5 border border-white/10">
-      {routing.locales.map((loc) => {
-        const isActive = loc === locale;
-        return (
-          <button
-            key={loc}
-            onClick={() => switchTo(loc)}
-            aria-pressed={isActive}
-            className={`px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors cursor-pointer ${
-              isActive
-                ? "bg-white text-black"
-                : "text-white/70 hover:text-white hover:bg-white/10"
-            }`}
-          >
-            {loc}
-          </button>
-        );
-      })}
-    </div>
+    <>
+      {/* Mobile: un solo botón toggle que muestra el idioma activo y cambia al otro al tocarlo. */}
+      <button
+        onClick={() => switchTo(nextLocale)}
+        aria-label={`Switch language to ${nextLocale.toUpperCase()}`}
+        className="flex sm:hidden items-center justify-center px-2.5 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-semibold uppercase tracking-wide text-white/90 hover:bg-white/20 transition-colors cursor-pointer"
+      >
+        {locale}
+      </button>
+
+      {/* Desktop: control segmentado con ambos idiomas visibles. */}
+      <div className="hidden sm:flex items-center gap-0.5 rounded-full bg-white/10 p-0.5 border border-white/10">
+        {routing.locales.map((loc) => {
+          const isActive = loc === locale;
+          return (
+            <button
+              key={loc}
+              onClick={() => switchTo(loc)}
+              aria-pressed={isActive}
+              className={`px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors cursor-pointer ${
+                isActive
+                  ? "bg-white text-black"
+                  : "text-white/70 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              {loc}
+            </button>
+          );
+        })}
+      </div>
+    </>
   );
 }
