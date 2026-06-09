@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ExternalLink, Lock, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -136,15 +136,20 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
                                   onPointerDown={onSlidePointerDown}
                                   onClick={openLightbox(idx)}
                                   aria-label={`${project.title} — ${idx + 1}`}
-                                  className="block h-full w-full cursor-zoom-in"
+                                  className="group/slide relative block h-full w-full cursor-pointer overflow-hidden"
                                 >
                                   <Image
                                     src={item.thumbnail || item.url}
                                     alt={`${project.title} — ${idx + 1}`}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover transition-transform duration-500 ease-out group-hover/slide:scale-[1.04]"
                                     sizes="(max-width: 768px) 100vw, 768px"
                                   />
+                                  <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover/slide:bg-black/35">
+                                    <span className="flex translate-y-1.5 items-center gap-1.5 rounded-full bg-black/65 px-3 py-1.5 text-xs font-medium text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover/slide:translate-y-0 group-hover/slide:opacity-100">
+                                      <Maximize2 size={14} /> {t("expand")}
+                                    </span>
+                                  </span>
                                 </button>
                               )}
                             </div>
