@@ -154,6 +154,7 @@ const en: PortfolioData = {
       repo: "https://github.com/LucianoR23/rentar-fliamor",
       image: "/rentar/rentar-primary.webp",
       gallery: [
+        { url: "/rentar/rentar-primary.webp" },
         { url: "/rentar/rentar-admin.mp4", type: "video", description: "Project demo" },
       ],
       isPrivate: false,
@@ -321,7 +322,7 @@ const esProjects: Record<string, ProjectText> = {
       "Sistema interno de gestión de alquileres construido para el mercado inmobiliario argentino. Centraliza la administración de propiedades, contratos, pagos, facturación electrónica AFIP (tipo A y B con CAE), actualización de precios de alquiler vía índices ICL/IPC a través de la integración con Arquiler, alertas automáticas por email y reportes en PDF. Self-hosted en un VPS de Oracle Cloud con Coolify.",
     cvDescription:
       "Plataforma de gestión inmobiliaria con facturación electrónica AFIP, actualizaciones de alquiler por ICL/IPC y reportes PDF automáticos. Self-hosted en Oracle Cloud.",
-    galleryDescriptions: ["Demo del proyecto"],
+    galleryDescriptions: [undefined, "Demo del proyecto"],
   },
   "Commercial Management System (SaaS)": {
     title: "Sistema de Gestión Comercial (SaaS)",

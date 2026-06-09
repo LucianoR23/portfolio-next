@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Lock, Play } from "lucide-react";
+import { X, ExternalLink, Lock, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import useEmblaCarousel from "embla-carousel-react";
 import { type Project } from "@/data/portfolio";
 import { GithubIcon } from "@/components/ui/SocialIcons";
 import { ImageGallery } from "@/components/ui/ImageGallery";
@@ -18,7 +19,15 @@ interface ProjectDetailProps {
 
 export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) {
   const t = useTranslations("ProjectCard");
+  const tNav = useTranslations("Projects");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+  // Distingue arrastre de click para no abrir el lightbox al draggear el carrusel.
+  const pointerDown = useRef<{ x: number; y: number } | null>(null);
 
   // Bloquea el scroll de la página de fondo mientras el modal está abierto
   // (evita el "scroll chaining" que saltaba a la página principal).
@@ -31,8 +40,27 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+      setCanPrev(emblaApi.canScrollPrev());
+      setCanNext(emblaApi.canScrollNext());
+    };
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi]);
+
   const gallery = project?.gallery ?? [];
-  const hasGallery = gallery.length > 0;
+  // El carrusel muestra la galería; si no hay, cae a la portada como slide único.
+  const slides =
+    gallery.length > 0 ? gallery : project?.image ? [{ url: project.image }] : [];
+  const hasSlides = slides.length > 0;
   const hasLink = project?.link && project.link !== "#";
   const hasRepo = project?.repo && project.repo !== "#";
   const repoLinks =
@@ -41,6 +69,16 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
       : hasRepo
         ? [{ label: t("code"), url: project!.repo! }]
         : [];
+
+  const onSlidePointerDown = (e: React.PointerEvent) => {
+    pointerDown.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const openLightbox = (idx: number) => (e: React.MouseEvent) => {
+    const start = pointerDown.current;
+    if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 10) return;
+    setLightboxIndex(idx);
+  };
 
   return (
     <>
@@ -64,28 +102,106 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
               <button
                 onClick={onClose}
                 aria-label={t("close")}
-                className="absolute right-4 top-4 z-20 rounded-full bg-black/50 p-2 text-white/80 backdrop-blur-md transition-colors hover:bg-black/70 hover:text-white cursor-pointer"
+                className="absolute right-4 top-4 z-30 rounded-full bg-black/50 p-2 text-white/80 backdrop-blur-md transition-colors hover:bg-black/70 hover:text-white cursor-pointer"
               >
                 <X size={20} />
               </button>
 
-              {/* Imagen principal */}
-              <div className="relative aspect-video w-full overflow-hidden bg-muted">
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={`Image of ${project.title}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 768px"
-                  />
+              {/* Carrusel principal (reemplaza la imagen estática + galería de abajo) */}
+              <div className="relative bg-muted">
+                {hasSlides ? (
+                  <>
+                    <div className="overflow-hidden" ref={emblaRef}>
+                      <div className="flex">
+                        {slides.map((item, idx) => {
+                          const isVideo = item.type === "video";
+                          return (
+                            <div
+                              key={idx}
+                              className="relative aspect-video w-full shrink-0 grow-0 basis-full"
+                            >
+                              {isVideo ? (
+                                <video
+                                  src={item.url}
+                                  controls
+                                  muted
+                                  playsInline
+                                  preload="metadata"
+                                  poster={item.thumbnail}
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <button
+                                  type="button"
+                                  onPointerDown={onSlidePointerDown}
+                                  onClick={openLightbox(idx)}
+                                  aria-label={`${project.title} — ${idx + 1}`}
+                                  className="block h-full w-full cursor-zoom-in"
+                                >
+                                  <Image
+                                    src={item.thumbnail || item.url}
+                                    alt={`${project.title} — ${idx + 1}`}
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 768px"
+                                  />
+                                </button>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {slides.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => emblaApi?.scrollPrev()}
+                          disabled={!canPrev}
+                          aria-label={tNav("prev")}
+                          className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white/90 backdrop-blur-md transition-all hover:bg-black/70 disabled:pointer-events-none disabled:opacity-0 cursor-pointer"
+                        >
+                          <ChevronLeft size={20} />
+                        </button>
+                        <button
+                          onClick={() => emblaApi?.scrollNext()}
+                          disabled={!canNext}
+                          aria-label={tNav("next")}
+                          className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white/90 backdrop-blur-md transition-all hover:bg-black/70 disabled:pointer-events-none disabled:opacity-0 cursor-pointer"
+                        >
+                          <ChevronRight size={20} />
+                        </button>
+
+                        <span className="absolute bottom-3 right-3 z-20 rounded-full bg-black/55 px-2.5 py-0.5 text-xs text-white/90 backdrop-blur-sm">
+                          {selectedIndex + 1} / {slides.length}
+                        </span>
+
+                        <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-1.5">
+                          {slides.map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => emblaApi?.scrollTo(i)}
+                              aria-label={`${tNav("goToSlide")} ${i + 1}`}
+                              aria-current={selectedIndex === i}
+                              className={`h-2 rounded-full transition-all cursor-pointer ${
+                                selectedIndex === i
+                                  ? "w-6 bg-white"
+                                  : "w-2 bg-white/40 hover:bg-white/70"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </>
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-secondary/30 text-sm text-muted-foreground">
+                  <div className="flex aspect-video w-full items-center justify-center bg-secondary/30 text-sm text-muted-foreground">
                     {t("imageNotAvailable")}
                   </div>
                 )}
+
                 {project.isPrivate && (
-                  <div className="absolute left-4 top-4 z-10 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-3 py-1 text-xs text-white shadow-sm backdrop-blur-md">
+                  <div className="absolute left-4 top-4 z-20 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-3 py-1 text-xs text-white shadow-sm backdrop-blur-md">
                     <Lock size={12} />
                     <span>{t("proprietary")}</span>
                   </div>
@@ -153,7 +269,7 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
                   </div>
                 )}
 
-                <div className="mb-8 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
@@ -163,65 +279,15 @@ export function ProjectDetail({ project, isOpen, onClose }: ProjectDetailProps) 
                     </span>
                   ))}
                 </div>
-
-                {/* Galería embebida */}
-                {hasGallery && (
-                  <div>
-                    <h4 className="mb-3 text-sm font-semibold text-foreground">
-                      {t("gallery")}
-                    </h4>
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                      {gallery.map((item, idx) => {
-                        const isVideo = typeof item !== "string" && item.type === "video";
-                        const url = typeof item === "string" ? item : item.url;
-                        const thumbnail = typeof item === "string" ? undefined : item.thumbnail;
-
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => setLightboxIndex(idx)}
-                            aria-label={`${project.title} — ${idx + 1}`}
-                            className="group relative aspect-video overflow-hidden rounded-lg border border-border bg-muted cursor-pointer"
-                          >
-                            {isVideo && !thumbnail ? (
-                              <video
-                                src={url}
-                                muted
-                                playsInline
-                                preload="metadata"
-                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              />
-                            ) : (
-                              <Image
-                                src={thumbnail || url}
-                                alt={`${project.title} — ${idx + 1}`}
-                                fill
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                sizes="(max-width: 640px) 50vw, 240px"
-                              />
-                            )}
-                            {isVideo && (
-                              <span className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/10">
-                                <span className="rounded-full bg-black/60 p-2 backdrop-blur-sm">
-                                  <Play size={16} className="text-white" fill="white" />
-                                </span>
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {project && hasGallery && (
+      {project && hasSlides && (
         <ImageGallery
-          images={gallery}
+          images={slides}
           isOpen={lightboxIndex !== null}
           initialIndex={lightboxIndex ?? 0}
           onClose={() => setLightboxIndex(null)}
