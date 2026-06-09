@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Info, Play } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { GalleryItem } from "@/data/portfolio";
 
 interface ImageGalleryProps {
@@ -14,6 +15,7 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ images, isOpen, onClose, title = "Project" }: ImageGalleryProps) {
+  const t = useTranslations("Gallery");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const getCurrentData = (item: string | GalleryItem) => {
@@ -81,7 +83,7 @@ export function ImageGallery({ images, isOpen, onClose, title = "Project" }: Ima
                     className="w-full h-full max-h-[80vh] object-contain" 
                     poster={currentItem.thumbnail || undefined}
                   >
-                    Your browser does not support videos.
+                    {t("noVideoSupport")}
                   </video>
                 ) : (
                   

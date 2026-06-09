@@ -1,0 +1,70 @@
+{
+  "Nav": {
+    "home": "Inicio",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto"
+  },
+  "Hero": {
+    "contactMe": "Contactame",
+    "cv": "CV",
+    "viewProjects": "Ver proyectos",
+    "downloadCv": "Descargar CV",
+    "online": "En línea",
+    "availableIn": "Disponible en",
+    "openToWork": "Disponible para trabajar"
+  },
+  "Skills": {
+    "techStack": "Stack tecnológico",
+    "technicalSkills": "Habilidades técnicas"
+  },
+  "Projects": {
+    "title": "Proyectos destacados",
+    "subtitle": "Una selección de soluciones que construí, desde herramientas de negocio hasta apps experimentales.",
+    "showAll": "Ver todos ({count} más)",
+    "showLess": "Ver menos"
+  },
+  "Experience": {
+    "title": "Experiencia",
+    "workExperience": "Experiencia laboral",
+    "education": "Educación"
+  },
+  "Footer": {
+    "heading": "¿Tenés un proyecto en mente?",
+    "body": "Actualmente estoy disponible para nuevos desafíos. Ya sea que quieras contratarme o simplemente saludar, mi bandeja de entrada está abierta.",
+    "sendEmail": "Enviame un email",
+    "copyright": "© {year} {name}. Hecho con Next.js y Tailwind."
+  },
+  "ProjectCard": {
+    "imageNotAvailable": "Imagen no disponible",
+    "proprietary": "Software propietario",
+    "viewGallery": "Ver galería",
+    "viewDemo": "Ver demo",
+    "viewScreens": "Ver pantallas",
+    "confidential": "Confidencial",
+    "code": "Código"
+  },
+  "Gallery": {
+    "noVideoSupport": "Tu navegador no soporta videos."
+  },
+  "Cv": {
+    "saveAsPdf": "Guardar como PDF",
+    "professionalProfile": "Perfil profesional",
+    "workExperience": "Experiencia laboral",
+    "selectedProjects": "Proyectos seleccionados",
+    "education": "Educación",
+    "technicalSkills": "Habilidades técnicas",
+    "languages": "Idiomas",
+    "portfolio": "Portfolio",
+    "langSpanish": "Español",
+    "langEnglish": "Inglés",
+    "levelNative": "Nativo",
+    "levelEnglish": "B1/B2"
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma",
+    "en": "EN",
+    "es": "ES"
+  }
+}

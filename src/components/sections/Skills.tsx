@@ -1,14 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { portfolioData } from "@/data/portfolio";
+import { useLocale, useTranslations } from "next-intl";
+import { getPortfolio } from "@/data/portfolio";
+import type { Locale } from "@/i18n/routing";
 
 interface SkillsProps {
   variant?: "bento" | "minimal" | string;
 }
 
 export function Skills({ variant = "minimal" }: SkillsProps) {
-  const { skills } = portfolioData;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Skills");
+  const { skills } = getPortfolio(locale);
 
   const half = Math.ceil(skills.length / 2);
   const row1 = skills.slice(0, half);
@@ -19,7 +23,7 @@ export function Skills({ variant = "minimal" }: SkillsProps) {
       <section id="skills" className="w-full py-10">
         <div className="container mx-auto px-4 max-w-6xl">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4 pl-1">
-            Tech Stack
+            {t("techStack")}
           </h3>
 
           <div className="bg-card border border-border rounded-2xl py-8 shadow-sm overflow-hidden relative group">
@@ -59,7 +63,7 @@ export function Skills({ variant = "minimal" }: SkillsProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-xl font-bold mb-6 text-primary">Technical Skills</h2>
+          <h2 className="text-xl font-bold mb-6 text-primary">{t("technicalSkills")}</h2>
           <div className="flex flex-wrap gap-x-8 gap-y-4">
             {skills.map((skill) => (
               <div key={skill} className="flex items-center gap-2">

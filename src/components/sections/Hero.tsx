@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, FileText } from "lucide-react"; 
+import { ArrowRight, Mail, FileText } from "lucide-react";
 import Link from "next/link";
-import { portfolioData } from "@/data/portfolio";
+import { useLocale, useTranslations } from "next-intl";
+import { getPortfolio } from "@/data/portfolio";
+import type { Locale } from "@/i18n/routing";
+import { Link as LocaleLink } from "@/i18n/navigation";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { smoothScroll } from "@/lib/utils";
 
@@ -12,7 +15,9 @@ interface HeroProps {
 }
 
 export function Hero({ variant = "minimal" }: HeroProps) {
-  const { personalInfo, socials } = portfolioData;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Hero");
+  const { personalInfo, socials } = getPortfolio(locale);
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -40,16 +45,15 @@ export function Hero({ variant = "minimal" }: HeroProps) {
                   onClick={(e) => smoothScroll(e, "#contact")}
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
                 >
-                  Contact Me <ArrowRight size={16} />
+                  {t("contactMe")} <ArrowRight size={16} />
                 </Link>
-                
-                <a
-                  href={personalInfo.cv}
-                  download
+
+                <LocaleLink
+                  href="/cv"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-secondary text-secondary-foreground border border-border font-medium hover:bg-secondary/80 transition-colors"
                 >
-                  <FileText size={16} /> CV
-                </a>
+                  <FileText size={16} /> {t("cv")}
+                </LocaleLink>
 
               </div>
             </motion.div>
@@ -81,11 +85,11 @@ export function Hero({ variant = "minimal" }: HeroProps) {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  <span className="text-[10px] font-medium text-white uppercase tracking-widest">Online</span>
+                  <span className="text-[10px] font-medium text-white uppercase tracking-widest">{t("online")}</span>
                 </div>
-                
+
                 <p className="text-white text-sm font-medium leading-tight">
-                  Available in <br />
+                  {t("availableIn")} <br />
                   <span className="text-lg font-bold">{personalInfo.location}</span>
                 </p>
               </div>
@@ -115,7 +119,7 @@ export function Hero({ variant = "minimal" }: HeroProps) {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                 </span>
-                Open to work
+                {t("openToWork")}
               </div>
             </motion.div>
           </div>
@@ -148,20 +152,19 @@ export function Hero({ variant = "minimal" }: HeroProps) {
               onClick={(e) => smoothScroll(e, "#projects")}
               className="group inline-flex items-center gap-2 text-primary font-semibold hover:opacity-80 transition-opacity"
             >
-              View Projects
+              {t("viewProjects")}
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            <div className="h-4 w-px bg-border hidden sm:block" /> 
+            <div className="h-4 w-px bg-border hidden sm:block" />
 
-            
-            <a 
-              href={personalInfo.cv}
-              download
+
+            <LocaleLink
+              href="/cv"
               className="text-muted-foreground hover:text-primary font-medium transition-colors flex items-center gap-1.5"
             >
-              <FileText size={18} /> Download CV
-            </a>
+              <FileText size={18} /> {t("downloadCv")}
+            </LocaleLink>
 
             <div className="h-4 w-px bg-border hidden sm:block" /> 
 

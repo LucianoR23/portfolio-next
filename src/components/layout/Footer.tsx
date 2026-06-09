@@ -3,11 +3,15 @@
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import Link from "next/link";
-import { portfolioData } from "@/data/portfolio";
+import { useLocale, useTranslations } from "next-intl";
+import { getPortfolio } from "@/data/portfolio";
+import type { Locale } from "@/i18n/routing";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
 
 export function Footer() {
-  const { personalInfo, socials } = portfolioData;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Footer");
+  const { personalInfo, socials } = getPortfolio(locale);
 
   return (
     <footer id="contact" className="w-full py-3 border-t border-border bg-card/30">
@@ -19,19 +23,19 @@ export function Footer() {
           className="space-y-8"
         >
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-            Have a project in mind?
+            {t("heading")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-            I&apos;m currently available for new challenges. Whether you want to hire me or just say hi, my inbox is open.
+            {t("body")}
           </p>
-          
+
           <div className="flex justify-center gap-4">
             <Link
               href={`mailto:${personalInfo.email}`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
             >
               <Mail size={18} />
-              Send me an email
+              {t("sendEmail")}
             </Link>
           </div>
 
@@ -45,7 +49,7 @@ export function Footer() {
           </div>
 
           <p className="text-sm text-muted-foreground pt-8">
-            © {new Date().getFullYear()} {personalInfo.name}. Built with Next.js & Tailwind.
+            {t("copyright", { year: new Date().getFullYear(), name: personalInfo.name })}
           </p>
         </motion.div>
       </div>

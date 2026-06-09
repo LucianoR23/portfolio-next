@@ -3,7 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-import { portfolioData } from "@/data/portfolio";
+import { useLocale, useTranslations } from "next-intl";
+import { getPortfolio } from "@/data/portfolio";
+import type { Locale } from "@/i18n/routing";
 import { ProjectCard } from "@/components";
 
 const INITIAL_COUNT = 4;
@@ -13,7 +15,9 @@ interface ProjectsProps {
 }
 
 export function Projects({ variant = "minimal" }: ProjectsProps) {
-  const { projects } = portfolioData;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Projects");
+  const { projects } = getPortfolio(locale);
   const [showAll, setShowAll] = useState(false);
   const firstGroup = projects.slice(0, INITIAL_COUNT);
   const secondGroup = projects.slice(INITIAL_COUNT);
@@ -37,10 +41,10 @@ export function Projects({ variant = "minimal" }: ProjectsProps) {
           className="mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Featured Projects
+            {t("title")}
           </h2>
           <p className="text-muted-foreground max-w-2xl">
-            A selection of solutions I&apos;ve built, from business tools to experimental apps.
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -61,7 +65,7 @@ export function Projects({ variant = "minimal" }: ProjectsProps) {
           <div className="flex justify-center mt-12">
             <button onClick={() => setShowAll(true)} className={btnBase}>
               <ChevronDown size={16} />
-              Show all ({secondGroup.length} more)
+              {t("showAll", { count: secondGroup.length })}
             </button>
           </div>
         )}
@@ -90,7 +94,7 @@ export function Projects({ variant = "minimal" }: ProjectsProps) {
               <div className="flex justify-center mt-12">
                 <button onClick={() => { setShowAll(false); setTimeout(() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" }), 300); }} className={btnBase}>
                   <ChevronUp size={16} />
-                  Show less
+                  {t("showLess")}
                 </button>
               </div>
             </motion.div>

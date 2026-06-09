@@ -4,18 +4,21 @@ import { smoothScroll } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Code, Mail, Menu, FolderGit2, BriefcaseBusiness } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
 const navItems = [
-  { name: "Home", href: "#top", icon: Home },
-  { name: "Skills", href: "#skills", icon: Code },
-  { name: "Projects", href: "#projects", icon: FolderGit2 },
-  { name: "Experience", href: "#experience", icon: BriefcaseBusiness },
-  { name: "Contact", href: "#contact", icon: Mail },
-];
+  { key: "home", href: "#top", icon: Home },
+  { key: "skills", href: "#skills", icon: Code },
+  { key: "projects", href: "#projects", icon: FolderGit2 },
+  { key: "experience", href: "#experience", icon: BriefcaseBusiness },
+  { key: "contact", href: "#contact", icon: Mail },
+] as const;
 
 export function Navbar() {
+  const t = useTranslations("Nav");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -94,20 +97,21 @@ export function Navbar() {
                     const Icon = item.icon;
                     return (
                         <Link
-                            key={item.name}
+                            key={item.key}
                             href={item.href}
                             onClick={(e) => {
-                                smoothScroll(e, item.href); 
-                                setIsMobileOpen(false);     
+                                smoothScroll(e, item.href);
+                                setIsMobileOpen(false);
                             }}
                               className="relative px-4 py-2 rounded-full text-sm font-medium text-white/90 hover:bg-white/20 transition-colors flex items-center gap-2 group"
                           >
                             <Icon size={16} className="text-white" />
-                            <span className="hidden sm:inline">{item.name}</span>
+                            <span className="hidden sm:inline">{t(item.key)}</span>
                         </Link>
                     );
                 })}
                 <div className="w-px h-6 bg-white/20 mx-1" />
+                <LanguageSwitcher />
                 <ThemeToggle />
             </motion.div>
           ) : (

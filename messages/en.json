@@ -1,0 +1,70 @@
+{
+  "Nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "contactMe": "Contact Me",
+    "cv": "CV",
+    "viewProjects": "View Projects",
+    "downloadCv": "Download CV",
+    "online": "Online",
+    "availableIn": "Available in",
+    "openToWork": "Open to work"
+  },
+  "Skills": {
+    "techStack": "Tech Stack",
+    "technicalSkills": "Technical Skills"
+  },
+  "Projects": {
+    "title": "Featured Projects",
+    "subtitle": "A selection of solutions I've built, from business tools to experimental apps.",
+    "showAll": "Show all ({count} more)",
+    "showLess": "Show less"
+  },
+  "Experience": {
+    "title": "Experience",
+    "workExperience": "Work Experience",
+    "education": "Education"
+  },
+  "Footer": {
+    "heading": "Have a project in mind?",
+    "body": "I'm currently available for new challenges. Whether you want to hire me or just say hi, my inbox is open.",
+    "sendEmail": "Send me an email",
+    "copyright": "© {year} {name}. Built with Next.js & Tailwind."
+  },
+  "ProjectCard": {
+    "imageNotAvailable": "Image not available",
+    "proprietary": "Proprietary Soft",
+    "viewGallery": "View Gallery",
+    "viewDemo": "View Demo",
+    "viewScreens": "View Screens",
+    "confidential": "Confidential",
+    "code": "Code"
+  },
+  "Gallery": {
+    "noVideoSupport": "Your browser does not support videos."
+  },
+  "Cv": {
+    "saveAsPdf": "Save as PDF",
+    "professionalProfile": "Professional Profile",
+    "workExperience": "Work Experience",
+    "selectedProjects": "Selected Projects",
+    "education": "Education",
+    "technicalSkills": "Technical Skills",
+    "languages": "Languages",
+    "portfolio": "Portfolio",
+    "langSpanish": "Spanish",
+    "langEnglish": "English",
+    "levelNative": "Native",
+    "levelEnglish": "B1/B2"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "en": "EN",
+    "es": "ES"
+  }
+}

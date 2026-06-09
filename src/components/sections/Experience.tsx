@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { portfolioData } from "@/data/portfolio";
+import { useLocale, useTranslations } from "next-intl";
+import { getPortfolio } from "@/data/portfolio";
+import type { Locale } from "@/i18n/routing";
 import { GraduationCap, Calendar, BriefcaseBusiness } from "lucide-react";
 
 interface ExperienceProps {
@@ -9,7 +11,9 @@ interface ExperienceProps {
 }
 
 export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
-  const { experience, education } = portfolioData;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Experience");
+  const { experience, education } = getPortfolio(locale);
   const isBento = variant === "bento";
 
   return (
@@ -24,7 +28,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           className="mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Experience
+            {t("title")}
           </h2>
         </motion.div>
 
@@ -33,7 +37,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           
           <div>
             <h3 className="flex items-center gap-2 text-xl font-semibold mb-6 text-primary">
-              <BriefcaseBusiness size={20} /> Work Experience
+              <BriefcaseBusiness size={20} /> {t("workExperience")}
             </h3>
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">
@@ -69,7 +73,7 @@ export const Experience = ({ variant = "minimal" }: ExperienceProps) => {
           
           <div>
              <h3 className="flex items-center gap-2 text-xl font-semibold mb-6 text-primary">
-              <GraduationCap size={20} /> Education
+              <GraduationCap size={20} /> {t("education")}
             </h3>
             
             <div className="space-y-8 border-l-2 border-border ml-3 pl-8 relative">

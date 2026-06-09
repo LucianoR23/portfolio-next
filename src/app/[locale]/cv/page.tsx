@@ -3,10 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import { Mail, Github, Linkedin, MapPin, Printer, Globe } from "lucide-react";
-import { portfolioData } from "@/data/portfolio";
+import { useLocale, useTranslations } from "next-intl";
+import { getPortfolio } from "@/data/portfolio";
+import type { Locale } from "@/i18n/routing";
 
 export default function CVPage() {
-  const { personalInfo, experience, education, skills, projects, socials } = portfolioData;
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Cv");
+  const { personalInfo, experience, education, skills, projects, socials } =
+    getPortfolio(locale);
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -17,25 +22,25 @@ export default function CVPage() {
 
   return (
     <div className="min-h-screen bg-white text-black p-0 md:p-8 font-sans print:p-0 print:bg-white">
-      
+
       {/* Botón flotante */}
       <div className="fixed bottom-8 right-8 print:hidden z-50">
         <button
           onClick={() => window.print()}
           className="bg-black text-white p-4 rounded-full shadow-xl hover:bg-neutral-800 transition-all flex items-center gap-2 font-bold cursor-pointer"
         >
-          <Printer size={20} /> Save as PDF
+          <Printer size={20} /> {t("saveAsPdf")}
         </button>
       </div>
 
       {/* Hoja A4 */}
       <main className="mx-auto max-w-[210mm] bg-white md:shadow-2xl md:p-[20mm] print:shadow-none print:w-full print:max-w-none print:p-0">
-        
+
         {/* ENCABEZADO */}
         <header className="border-b-2 border-black pb-4 mb-5">
           <h1 className="text-3xl font-bold uppercase tracking-tight mb-1">{personalInfo.name}</h1>
           <p className="text-base text-neutral-600 font-medium mb-3">{personalInfo.tagline}</p>
-          
+
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-neutral-700">
             <div className="flex items-center gap-1">
               <MapPin size={12} /> {personalInfo.location}
@@ -50,26 +55,26 @@ export default function CVPage() {
               <Github size={12} /> GitHub
             </Link>
             <Link href="https://portfolio.lemydev.com" target="_blank" className="flex items-center gap-1 hover:underline">
-              <Globe size={12} /> Portfolio
+              <Globe size={12} /> {t("portfolio")}
             </Link>
           </div>
         </header>
 
         {/* 2 COLUMNAS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 print:grid print:grid-cols-3 print:gap-8">
-          
+
           {/* COLUMNA IZQUIERDA (Principal 2/3) */}
           <div className="md:col-span-2 print:col-span-2 space-y-6">
-            
+
             <section>
-              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-2">Professional Profile</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-2">{t("professionalProfile")}</h2>
               <p className="text-xs leading-relaxed text-justify text-neutral-700">
                 {personalInfo.description}
               </p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">Work Experience</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">{t("workExperience")}</h2>
               <div className="space-y-4">
                 {experience.map((job, index) => (
                   <div key={index} className="avoid-break">
@@ -89,9 +94,9 @@ export default function CVPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">Selected Projects</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">{t("selectedProjects")}</h2>
               <div className="space-y-4">
-                {projects.slice(0, 3).map((proj, index) => ( 
+                {projects.slice(0, 3).map((proj, index) => (
                   <div key={index} className="avoid-break">
                     <div className="flex justify-between items-baseline">
                       <h3 className="font-bold text-sm">{proj.title}</h3>
@@ -111,9 +116,9 @@ export default function CVPage() {
 
           {/* COLUMNA DERECHA (Lateral 1/3) */}
           <div className="space-y-6 print:col-span-1">
-            
+
             <section className="avoid-break">
-              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">Education</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">{t("education")}</h2>
               <div className="space-y-4">
                 {education.map((edu, index) => (
                   <div key={index}>
@@ -128,7 +133,7 @@ export default function CVPage() {
             </section>
 
             <section className="avoid-break">
-              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">Technical Skills</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">{t("technicalSkills")}</h2>
               <div className="flex flex-wrap gap-1.5">
                 {skills.map((skill) => (
                   <span key={skill} className="px-2 py-0.5 bg-neutral-100 text-neutral-800 text-[10px] font-medium rounded border border-neutral-200">
@@ -137,17 +142,17 @@ export default function CVPage() {
                 ))}
               </div>
             </section>
-            
+
              <section className="avoid-break">
-              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">Languages</h2>
+              <h2 className="text-lg font-bold uppercase border-b border-neutral-300 pb-1 mb-3">{t("languages")}</h2>
               <ul className="text-xs space-y-1">
                 <li className="flex justify-between">
-                  <span>Spanish</span>
-                  <span className="font-semibold text-neutral-500">Native</span>
+                  <span>{t("langSpanish")}</span>
+                  <span className="font-semibold text-neutral-500">{t("levelNative")}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span>English</span>
-                  <span className="font-semibold text-neutral-500">B1/B2</span>
+                  <span>{t("langEnglish")}</span>
+                  <span className="font-semibold text-neutral-500">{t("levelEnglish")}</span>
                 </li>
               </ul>
             </section>
@@ -156,13 +161,12 @@ export default function CVPage() {
         </div>
 
       </main>
-      
+
       {/* ESTILOS DE IMPRESIÓN */}
       <style jsx global>{`
         @media print {
           @page {
-            /* AUMENTADO A 20mm (2cm) por lado. Esto debería darte el espacio que falta. */
-            margin: 20mm; 
+            margin: 20mm;
             size: A4;
           }
           body {

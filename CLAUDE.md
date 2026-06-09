@@ -4,10 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- **Dev server:** `npm run dev`
-- **Build:** `npm run build`
-- **Lint:** `npm run lint` (ESLint with Next.js core-web-vitals + TypeScript rules)
-- **Start production:** `npm run start`
+Package manager is **pnpm** (migrated from npm).
+
+- **Dev server:** `pnpm dev`
+- **Build:** `pnpm build`
+- **Lint:** `pnpm lint` (ESLint with Next.js core-web-vitals + TypeScript rules)
+- **Start production:** `pnpm start`
 
 No test framework is configured.
 
@@ -17,7 +19,11 @@ This is a personal portfolio site built with **Next 16** (App Router), **React 1
 
 ### Key patterns
 
-- **Data-driven rendering:** All portfolio content (personal info, projects, experience, education, skills) lives in `src/data/portfolio.ts` as a single `portfolioData` object. Components read from this data — content changes go there, not in components.
+- **Data-driven rendering:** All portfolio content (personal info, projects, experience, education, skills) lives in `src/data/portfolio.ts`. Components read it via `getPortfolio(locale)` — content changes go there, not in components.
+- **i18n (next-intl):** Locale-routed with `next-intl`. Locales `en` (default, no URL prefix) and `es` (`/es`). `localePrefix: 'as-needed'` keeps English URLs unprefixed (`/`, `/cv`) and Spanish at `/es`, `/es/cv`. Config lives in `src/i18n/` (`routing.ts`, `request.ts`, `navigation.ts`) and `src/proxy.ts` (the locale middleware — Next 16 renamed `middleware` → `proxy`).
+  - **UI strings** (chrome: nav, buttons, section titles, footer, CV labels) → message catalogs `messages/en.json` & `messages/es.json`, read with `useTranslations('Namespace')`.
+  - **Content data** (`portfolio.ts`) → English is the neutral base holding all structural data (URLs, images, tags, dates, gallery). The Spanish overlay (`esProjects`/`esExperience`/`esEducation`) only overrides translatable text; `getPortfolio(locale)` merges them. To add a string: add the key to both JSON files. To translate content: edit the `es*` overlays.
+  - For internal links that must respect the active locale, use `Link` from `@/i18n/navigation` (not `next/link`). The `LanguageSwitcher` (in the Navbar) swaps locale preserving the current path.
 - **Style variants:** The home page supports `"bento"` and `"minimal"` layout variants controlled by the `NEXT_PUBLIC_PORTFOLIO_STYLE` env var (defaults to `"minimal"`). Section components (`Hero`, `Skills`, `Projects`, `Experience`) accept a `variant` prop.
 - **Barrel exports:** `src/components/index.ts` re-exports all components. Imports use `@/components`.
 - **Path alias:** `@/*` maps to `./src/*`.
@@ -27,12 +33,14 @@ This is a personal portfolio site built with **Next 16** (App Router), **React 1
 
 ### Routes
 
-- `/` — Main portfolio page (all sections)
-- `/cv` — Printable CV page (client component with `window.print()`, print-optimized CSS)
+All routes live under `src/app/[locale]/`. There is no root `app/layout.tsx`; `app/[locale]/layout.tsx` is the root layout (owns `<html lang>` + providers).
+
+- `/` (en) · `/es` — Main portfolio page (all sections)
+- `/cv` (en) · `/es/cv` — Printable CV page (client component with `window.print()`, print-optimized CSS). The Hero "Download CV" button links here so the printed/saved CV follows the active language.
 
 ### Component organization
 
 - `src/components/sections/` — Page sections (Hero, Skills, Projects, Experience)
 - `src/components/layout/` — Navbar, Footer
-- `src/components/ui/` — Reusable UI (ProjectCard, ImageGallery, ThemeToggle, SocialIcons)
+- `src/components/ui/` — Reusable UI (ProjectCard, ImageGallery, ThemeToggle, SocialIcons, LanguageSwitcher)
 - `src/components/theme/` — ThemeProvider wrapper

@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, ArrowUpRight, Images, Lock } from "lucide-react"; 
+import { ExternalLink, ArrowUpRight, Images, Lock } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react"; 
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { type Project } from "@/data/portfolio";
 import { GithubIcon } from "@/components/ui/SocialIcons";
-import { ImageGallery } from "@/components/ui/ImageGallery"; 
+import { ImageGallery } from "@/components/ui/ImageGallery";
 import Image from "next/image";
 
 interface ProjectCardProps {
@@ -16,8 +17,9 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, variant, index }: ProjectCardProps) {
+  const t = useTranslations("ProjectCard");
   const isBento = variant === "bento";
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false); 
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const hasGallery = project.gallery && project.gallery.length > 0;
   const hasLink = project.link && project.link !== "#";
@@ -26,7 +28,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
     project.repos && project.repos.length > 0
       ? project.repos
       : hasRepo
-        ? [{ label: "Code", url: project.repo! }]
+        ? [{ label: t("code"), url: project.repo! }]
         : [];
 
   return (
@@ -56,14 +58,14 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-secondary/30">
-               <span className="text-sm">Image not available</span>
+               <span className="text-sm">{t("imageNotAvailable")}</span>
             </div>
           )}
 
           {project.isPrivate && (
             <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full flex items-center gap-1.5 border border-white/10 z-10 shadow-sm">
               <Lock size={12} />
-              <span>Proprietary Soft</span>
+              <span>{t("proprietary")}</span>
             </div>
           )}
 
@@ -73,7 +75,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
               className="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white text-xs px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-md transition-all z-20 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 cursor-pointer"
             >
               <Images size={14} />
-              View Gallery
+              {t("viewGallery")}
             </button>
           )}
         </div>
@@ -109,18 +111,18 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
 
             {hasLink ? (
                <Link href={project.link!} target="_blank" className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:opacity-90 shadow-sm transition-all hover:-translate-y-0.5">
-                  <ExternalLink size={16} /> View Demo
+                  <ExternalLink size={16} /> {t("viewDemo")}
                </Link>
             ) : hasGallery ? (
               <button 
                   onClick={() => setIsGalleryOpen(true)}
                   className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-sm cursor-pointer"
               >
-                <Images size={16} /> View Screens
+                <Images size={16} /> {t("viewScreens")}
               </button>
             ) : (
               <button disabled className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-secondary text-muted-foreground font-medium text-sm opacity-50 cursor-not-allowed">
-                <Lock size={16} /> Confidential
+                <Lock size={16} /> {t("confidential")}
               </button>
             )}
 
