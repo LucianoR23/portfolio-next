@@ -33,8 +33,10 @@
   "Footer": {
     "heading": "Have a project in mind?",
     "body": "I'm currently available for new challenges. Whether you want to hire me or just say hi, my inbox is open.",
-    "sendEmail": "Send me an email",
-    "copyright": "© {year} {name}. Built with Next.js & Tailwind."
+    "sendEmail": "Send me an email"
+  },
+  "DevSignature": {
+    "developedBy": "Developed by"
   },
   "ProjectCard": {
     "imageNotAvailable": "Image not available",

@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { getPortfolio } from "@/data/portfolio";
 import type { Locale } from "@/i18n/routing";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
+import { DevSignature } from "@/components/ui/dev-signature";
 
 export function Footer() {
   const locale = useLocale() as Locale;
@@ -48,9 +49,7 @@ export function Footer() {
              </Link>
           </div>
 
-          <p className="text-sm text-muted-foreground pt-8">
-            {t("copyright", { year: new Date().getFullYear(), name: personalInfo.name })}
-          </p>
+          <DevSignature className="pt-8" />
         </motion.div>
       </div>
     </footer>
