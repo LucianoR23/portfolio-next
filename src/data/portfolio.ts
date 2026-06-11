@@ -40,6 +40,11 @@ export interface EducationItem {
   period: string;
 }
 
+export interface LanguageItem {
+  name: string;
+  level: string;
+}
+
 export interface PortfolioData {
   personalInfo: {
     name: string;
@@ -47,6 +52,7 @@ export interface PortfolioData {
     description: string;
     location: string;
     email: string;
+    phone?: string;
     availability?: string;
   };
   socials: {
@@ -58,6 +64,7 @@ export interface PortfolioData {
   projects: Project[];
   experience: ExperienceItem[];
   education: EducationItem[];
+  languages: LanguageItem[];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -74,6 +81,7 @@ const en: PortfolioData = {
       "Passionate developer focused on creating tools that solve real-world problems. Currently working at TelCo SAPEM as a QA Analyst, pursuing a degree in Information Systems, and managing personal software projects.",
     location: "Corrientes, Argentina",
     email: "luciano.rodriguez.dev@gmail.com",
+    phone: "+5493794528233",
     availability: "Available for freelance projects",
   },
   socials: {
@@ -274,6 +282,10 @@ const en: PortfolioData = {
       period: "2026 - 07/2028 (Expected)",
     },
   ],
+  languages: [
+    { name: "Spanish", level: "Native" },
+    { name: "English", level: "Intermediate-Advanced" },
+  ],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -364,6 +376,11 @@ const esExperience: Partial<ExperienceItem>[] = [
   },
 ];
 
+const esLanguages: LanguageItem[] = [
+  { name: "Español", level: "Nativo" },
+  { name: "Inglés", level: "Intermedio-Avanzado" },
+];
+
 const esEducation: Partial<EducationItem>[] = [
   {}, // Udemy MERN: el título del curso se mantiene en inglés
   { degree: "Go - De cero a avanzado (Golang)" },
@@ -401,6 +418,7 @@ const es: PortfolioData = {
   }),
   experience: en.experience.map((e, i) => ({ ...e, ...esExperience[i] })),
   education: en.education.map((e, i) => ({ ...e, ...esEducation[i] })),
+  languages: esLanguages,
 };
 
 const byLocale: Record<Locale, PortfolioData> = { en, es };
